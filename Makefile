@@ -1,9 +1,10 @@
-all: BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks osm
+all: Parcel/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks osm
 
 clean:
 	rm -f BldgPly.zip
 	rm -f AddressPt.zip
 	rm -f BlockGroupPly.zip
+	rm -f Parcel.zip
 
 BldgPly.zip:
 	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/11/lariac_buildings_2008.zip" -o BldgPly.zip
@@ -14,9 +15,11 @@ AddressPt.zip:
 BlockGroupPly.zip:
 	curl -L "http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_06_bg_500k.zip" -o BlockGroupPly.zip
 
+Parcel.zip:
+	curl -L "http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip" -o Parcel.zip
+
 # Other potential data sources
 # LA City Community Plan Areas: https://data.lacity.org/api/geospatial/pu8r-72kk?method=export&format=Shapefile
-# LA County parcels: http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip
 
 BldgPly: BldgPly.zip
 	rm -rf BldgPly
@@ -26,12 +29,16 @@ AddressPt: AddressPt.zip
 	rm -rf AddressPt
 	unzip AddressPt.zip -d AddressPt
 
-# NOTE: this downloads block groups for all of California. ogr2ogr selects creates BlockGroupPolyshp with LA County only.
+# NOTE: this downloads block groups for all of California. ogr2ogr selects & creates BlockGroupPolyshp with LA County only.
 
 BlockGroupPly: BlockGroupPly.zip
 	rm -rf BlockGroupPly
 	unzip BlockGroupPly.zip -d BlockGroupPly
 	ogr2ogr -where "COUNTYFP='037'" BlockGroupPly/BlockGroupPly.shp BlockGroupPly/cb_2013_06_bg_500k.shp
+
+Parcel: Parcel.zip
+	rm -rf Parcel
+	unzip Parcel.zip -d Parcel
 
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
@@ -44,6 +51,10 @@ AddressPt/addresses.shp: AddressPt
 BlockGroupPly/blockgroups.shp: BlockGroupPly
 	rm -f BlockGroupPly/blockgroups.*
 	ogr2ogr -t_srs EPSG:4326 BlockGroupPly/blockgroups.shp BlockGroupPly/BlockGroupPly.shp
+
+Parcel/parcels.shp: Parcel
+	rm -f Parcel/parcels.*
+	ogr2ogr -t_srs EPSG:4326 Parcel/parcels.shp Parcel/Parcel.shp
 
 BlockGroupPly/blockgroups.geojson: BlockGroupPly
 	rm -f BlockGroupPly/blockgroups.geojson
