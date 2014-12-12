@@ -1,0 +1,15 @@
+.DS_Store
+/AddressPt.zip
+/AddressPt/
+/BldgPly.zip
+/BldgPly/
+/BlockGroupPly.zip
+/BlockGroupPly/
+/ParcelPly.zip
+/ParcelPly/
+/chunks/
+/merged/
+/osm/
+/addresses/
+/buildings/
+*/node_modules/*
