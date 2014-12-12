@@ -1,10 +1,10 @@
-all: Parcel/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks merged osm
+all: ParcelPly/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks merged osm
 
 clean:
 	rm -f BldgPly.zip
 	rm -f AddressPt.zip
 	rm -f BlockGroupPly.zip
-	rm -f Parcel.zip
+	rm -f ParcelPly.zip
 
 BldgPly.zip:
 	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/11/lariac_buildings_2008.zip" -o BldgPly.zip
@@ -15,8 +15,8 @@ AddressPt.zip:
 BlockGroupPly.zip:
 	curl -L "http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_06_bg_500k.zip" -o BlockGroupPly.zip
 
-Parcel.zip:
-	curl -L "http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip" -o Parcel.zip
+ParcelPly.zip:
+	curl -L "http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip" -o ParcelPly.zip
 
 # Other potential data sources
 # LA City Community Plan Areas: https://data.lacity.org/api/geospatial/pu8r-72kk?method=export&format=Shapefile
@@ -36,9 +36,9 @@ BlockGroupPly: BlockGroupPly.zip
 	unzip BlockGroupPly.zip -d BlockGroupPly
 	ogr2ogr -where "COUNTYFP='037'" BlockGroupPly/BlockGroupPly.shp BlockGroupPly/cb_2013_06_bg_500k.shp
 
-Parcel: Parcel.zip
-	rm -rf Parcel
-	unzip Parcel.zip -d Parcel
+ParcelPly: ParcelPly.zip
+	rm -rf ParcelPly
+	unzip ParcelPly.zip -d ParcelPly
 
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
@@ -52,9 +52,9 @@ BlockGroupPly/blockgroups.shp: BlockGroupPly
 	rm -f BlockGroupPly/blockgroups.*
 	ogr2ogr -t_srs EPSG:4326 BlockGroupPly/blockgroups.shp BlockGroupPly/BlockGroupPly.shp
 
-Parcel/parcels.shp: Parcel
-	rm -f Parcel/parcels.*
-	ogr2ogr -t_srs EPSG:4326 Parcel/parcels.shp Parcel/Parcel.shp
+ParcelPly/parcels.shp: ParcelPly
+	rm -f ParcelPly/parcels.*
+	ogr2ogr -t_srs EPSG:4326 ParcelPly/parcels.shp ParcelPly/Parcel.shp
 
 BlockGroupPly/blockgroups.geojson: BlockGroupPly
 	rm -f BlockGroupPly/blockgroups.geojson
@@ -62,10 +62,10 @@ BlockGroupPly/blockgroups.geojson: BlockGroupPly
 	ogr2ogr -simplify 3 -t_srs EPSG:900913 -f "GeoJSON" BlockGroupPly/blockgroups-900913.geojson BlockGroupPly/BlockGroupPly.shp
 #	python tasks.py BlockGroupPly/blockgroups-900913.geojson > BlockGroupPly/blockgroups.geojson
 
-chunks: directories AddressPt/addresses.shp BldgPly/buildings.shp Parcel/parcels.shp
+chunks: directories AddressPt/addresses.shp BldgPly/buildings.shp ParcelPly/parcels.shp
 	python chunk.py AddressPt/addresses.shp BlockGroupPly/blockgroups.shp chunks/addresses-%s.shp GEOID
 	python chunk.py BldgPly/buildings.shp BlockGroupPly/blockgroups.shp chunks/buildings-%s.shp GEOID
-	python chunk.py Parcel/parcels.shp BlockGroupPly/blockgroups.shp chunks/parcels-%s.shp GEOID
+	python chunk.py ParcelPly/parcels.shp BlockGroupPly/blockgroups.shp chunks/parcels-%s.shp GEOID
 
 merged: directories
 #	python merge.py
