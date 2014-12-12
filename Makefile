@@ -62,15 +62,18 @@ BlockGroupPly/blockgroups.geojson: BlockGroupPly
 	ogr2ogr -simplify 3 -t_srs EPSG:900913 -f "GeoJSON" BlockGroupPly/blockgroups-900913.geojson BlockGroupPly/BlockGroupPly.shp
 #	python tasks.py BlockGroupPly/blockgroups-900913.geojson > BlockGroupPly/blockgroups.geojson
 
-chunks: directories
-	rm -f chunks/*
-#	python chunk.py AddressPt/addresses.shp BlockGroupPly/blockgroups.shp chunks/addresses-%s.shp OBJECTID
-#	python chunk.py BldgPly/buildings.shp BlockGroupPly/blockgroups.shp chunks/buildings-%s.shp OBJECTID
+chunks: directories AddressPt/addresses.shp BldgPly/buildings.shp Parcel/parcels.shp
+	python chunk.py AddressPt/addresses.shp BlockGroupPly/blockgroups.shp chunks/addresses-%s.shp GEOID
+	python chunk.py BldgPly/buildings.shp BlockGroupPly/blockgroups.shp chunks/buildings-%s.shp GEOID
+	python chunk.py Parcel/parcels.shp BlockGroupPly/blockgroups.shp chunks/parcels-%s.shp GEOID
 
-osm: directories
-	rm -f osm/*
-#	python convert.py
+merged: directories
+#	python merge.py
+
+osm: merged
+#	python convert.py merged/*
 
 directories:
 	mkdir -p chunks
+	mkdir -p merged
 	mkdir -p osm
