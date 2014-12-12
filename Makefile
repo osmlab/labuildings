@@ -1,4 +1,4 @@
-all: Parcel/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks osm
+all: Parcel/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks merged osm
 
 clean:
 	rm -f BldgPly.zip
