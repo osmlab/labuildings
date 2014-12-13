@@ -42,7 +42,8 @@ ParcelPly: ParcelPly.zip
 
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
-	ogr2ogr -simplify 0.2 -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
+# Specify CODE=Building to ignore CODE=Courtyard
+	ogr2ogr -where "CODE='Building'" -simplify 0.2 -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
 
 AddressPt/addresses.shp: AddressPt
 	rm -f AddressPt/addresses.*
