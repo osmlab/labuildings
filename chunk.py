@@ -17,8 +17,13 @@ def chunk(featureFileName, sectionFileName, pattern, key = None):
         featureIdx = index.Index()
         features = []
         for feature in featureFile:
-            features.append(feature)
-            featureIdx.add(len(features) - 1, asShape(feature['geometry']).bounds)
+            try:
+                shape = asShape(feature['geometry'])
+                features.append(feature)
+                featureIdx.add(len(features) - 1, shape.bounds)
+            except ValueError:
+                print "Error parsing feature"
+                pprint(feature)
 
         # Break up by sections and export
         with collection(sectionFileName, "r") as sectionFile:
