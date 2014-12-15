@@ -11,6 +11,7 @@ This README is about data conversion. See also the [page on the OSM wiki](https:
 
 ![LA buildings screenshot](la_buildings_screenshot.png?raw=true "LA buildings screenshot from QGIS")
 
+Browse a slippy map of the data [here](https://api.tiles.mapbox.com/v3/stamen.labuildings/page.html#17/33.99024/-118.46586)
 
 
 ## Prerequisites
