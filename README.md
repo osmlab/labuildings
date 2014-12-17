@@ -97,4 +97,4 @@ You can run stages separately, like so:
 
 ## Attribute mapping
 
-TBD.
+TBD. See https://github.com/osmlab/labuildings/issues/3
