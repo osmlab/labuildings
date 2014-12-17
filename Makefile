@@ -78,3 +78,8 @@ directories:
 	mkdir -p chunks
 	mkdir -p merged
 	mkdir -p osm
+
+# Make TileMill 1 project
+tilemill:
+	mkdir -p ${HOME}/Documents/MapBox/project
+	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/labuildings

@@ -1,0 +1,134 @@
+{
+  "bounds": [
+    -119.0231,
+    33.6386,
+    -117.6031,
+    34.86
+  ],
+  "center": [
+    -118.2489,
+    34.0393,
+    18
+  ],
+  "format": "png8",
+  "interactivity": {
+    "layer": "addresses",
+    "template_teaser": "<br>OBJECTID {{{OBJECTID}}} \n<br>AIN {{{AIN}}} \n<br>NumPrefix {{{NumPrefix}}} \n<br>Number {{{Number}}} \n<br>NumSuffix {{{NumSuffix}}} \n<br>PreMod {{{PreMod}}} \n<br>PreDir {{{PreDir}}} \n<br>PreType {{{PreType}}} \n<br>StArticle {{{StArticle}}} \n<br>StreetName {{{StreetName}}} \n<br>PostType {{{PostType}}} \n<br>PostDir {{{PostDir}}} \n<br>PostMod {{{PostMod}}} \n<br>UnitType {{{UnitType}}} \n<br>UnitName {{{UnitName}}} \n<br>ZipCode {{{ZipCode}}} \n<br>Zip4 {{{Zip4}}} \n<br>LegalComm {{{LegalComm}}} \n<br>Source {{{Source}}} \n<br>SourceID {{{SourceID}}} \n<br>MADRank {{{MADRank}}} \n<br>PCITY1 {{{PCITY1}}} \n<br>PCITY2 {{{PCITY2}}} \n<br>PCITY3 {{{PCITY3}}}",
+    "fields": [
+      "OBJECTID",
+      "AIN",
+      "NumPrefix",
+      "Number",
+      "NumSuffix",
+      "PreMod",
+      "PreDir",
+      "PreType",
+      "StArticle",
+      "StreetName",
+      "PostType",
+      "PostDir",
+      "PostMod",
+      "UnitType",
+      "UnitName",
+      "ZipCode",
+      "Zip4",
+      "LegalComm",
+      "Source",
+      "SourceID",
+      "MADRank",
+      "PCITY1",
+      "PCITY2",
+      "PCITY3"
+    ]
+  },
+  "minzoom": 10,
+  "maxzoom": 18,
+  "srs": "+proj=merc +a=6378137 +b=6378137 +lat_ts=0.0 +lon_0=0.0 +x_0=0.0 +y_0=0.0 +k=1.0 +units=m +nadgrids=@null +wktext +no_defs +over",
+  "Stylesheet": [
+    "style.mss"
+  ],
+  "Layer": [
+    {
+      "geometry": "polygon",
+      "extent": [
+        -118.94486241390396,
+        32.801461999999994,
+        -117.64637399999997,
+        34.823300999999994
+      ],
+      "id": "blockgroups",
+      "class": "",
+      "Datasource": {
+        "file": "BlockGroupPly/blockgroups.shp"
+      },
+      "layer": null,
+      "srs-name": "autodetect",
+      "srs": "",
+      "advanced": {},
+      "name": "blockgroups"
+    },
+    {
+      "geometry": "polygon",
+      "extent": [
+        -118.94469074644947,
+        32.7952008297645,
+        -117.64637387557413,
+        34.82329918847449
+      ],
+      "id": "parcels",
+      "class": "",
+      "Datasource": {
+        "file": "ParcelPly/parcels.shp"
+      },
+      "layer": null,
+      "srs-name": "autodetect",
+      "srs": "",
+      "advanced": {},
+      "name": "parcels"
+    },
+    {
+      "geometry": "polygon",
+      "extent": [
+        -118.9424029110796,
+        33.31726540743119,
+        -117.65231979291985,
+        34.82170436217773
+      ],
+      "id": "buildings",
+      "class": "",
+      "Datasource": {
+        "file": "BldgPly/buildings.shp"
+      },
+      "layer": null,
+      "srs-name": "autodetect",
+      "srs": "",
+      "advanced": {},
+      "name": "buildings"
+    },
+    {
+      "geometry": "point",
+      "extent": [
+        -118.94042501451759,
+        -85.051,
+        163.05427921408383,
+        34.82304024310193
+      ],
+      "id": "addresses",
+      "class": "",
+      "Datasource": {
+        "file": "AddressPt/addresses.shp"
+      },
+      "layer": null,
+      "srs-name": "autodetect",
+      "srs": "",
+      "advanced": {},
+      "name": "addresses"
+    }
+  ],
+  "scale": 1,
+  "metatile": 2,
+  "name": "LA County buildings",
+  "description": "Buildings, parcels, address points, and census blocks. See http://github.com/osmlab/labuildings",
+  "attribution": "",
+  "legend": ""
+}
