@@ -84,8 +84,8 @@ tilemill:
 	mkdir -p ${HOME}/Documents/MapBox/project
 	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/labuildings
 
-# Load database for Mapbox StudioA
-database:
+# Load database for Mapbox Studio
+database: AddressPt/addresses.shp BldgPly/buildings.shp ParcelPly/parcels.shp BlockGroupPly/blockgroups.shp
 	createdb labuildings
 	psql labuildings -c "CREATE EXTENSION postgis;"
 	shp2pgsql AddressPt/address.shp | psql labuildings
