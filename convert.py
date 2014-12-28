@@ -1,5 +1,4 @@
-# Convert NYC building footprints and addresses into importable OSM files.
-# TODO: adapt from NYC to LA
+# Convert LA building footprints and addresses into importable OSM files.
 from lxml import etree
 from lxml.etree import tostring
 from shapely.geometry import asShape, Point, LineString
@@ -19,13 +18,22 @@ getcontext().prec = 16
 # Converts given buildings into corresponding OSM XML files.
 def convert(buildingsFile, osmOut):
     with open(buildingsFile) as f:
-        buildings = json.load(f)
+        features = json.load(f)
+    allAddresses = []
+    buildings = []
     buildingShapes = []
     buildingIdx = index.Index()
-    for building in buildings:
-        shape = asShape(building['geometry'])
-        buildingShapes.append(shape)
-        buildingIdx.add(len(buildingShapes) - 1, shape.bounds)
+    for feature in features:
+        if feature['geometry']['type'] == 'Polygon':
+            buildings.append(feature)
+            shape = asShape(feature['geometry'])
+            buildingShapes.append(shape)
+            buildingIdx.add(len(buildingShapes) - 1, shape.bounds)
+        elif feature['geometry']['type'] == 'Point':
+            allAddresses.append(feature)
+
+        else:
+            print "geometry of unknown type:", feature['geometry']['type']
 
     # Generates a new osm id.
     osmIds = dict(node = -1, way = -1, rel = -1)
@@ -36,38 +44,33 @@ def convert(buildingsFile, osmOut):
     ## Formats multi part house numbers
     def formatHousenumber(p):
         def suffix(part1, part2, hyphen_type=None):
-            part1 = stripZeroes(part1)
+            #part1 = stripZeroes(part1)
             if not part2:
                 return str(part1)
-            part2 = stripZeroes(part2)
-            if hyphen_type == 'U': # unit numbers
-                return part1 + '-' + part2
-            if len(part2) == 1 and part2.isalpha(): # single letter extensions
-                return part1 + part2
-            return part1 + ' ' + part2 # All others
-        def stripZeroes(addr): # strip leading zeroes from numbers
-            if addr.isdigit():
-                addr = str(int(addr))
-            if '-' in addr:
-                try:
-                    addr2 = addr.split('-')
-                    if len(addr2) == 2:
-                        addr = str(int(addr2[0])) + '-' + str(int(addr2[1])).zfill(2)
-                except:
-                    pass
-            return addr
-        number = suffix(p['HOUSE_NUMB'], p['HOUSE_NU_1'], p['HYPHEN_TYP'])
+            #part2 = stripZeroes(part2)
+            return str(part1) + ' ' + str(part2)
+        #def stripZeroes(addr): # strip leading zeroes from numbers
+        #    if addr.isdigit():
+        #        addr = str(int(addr))
+        #    if '-' in addr:
+        #        try:
+        #            addr2 = addr.split('-')
+        #            if len(addr2) == 2:
+        #                addr = str(int(addr2[0])) + '-' + str(int(addr2[1])).zfill(2)
+        #        except:
+        #            pass
+        #    return addr
+        number = suffix(p['Number'], p['NumSuffix'])
         return number
 
     # Converts an address
     def convertAddress(address):
         result = dict()
-        if all (k in address for k in ('HOUSE_NUMB', 'STREET_NAM')):
-            if address['HOUSE_NUMB']:
+        if all (k in address for k in ('Number', 'StreetName')):
+            if address['Number']:
                 result['addr:housenumber'] = formatHousenumber(address)
-            if address['STREET_NAM']:
-                streetname = address['STREET_NAM'].title()
-                streetname = streetname.replace('F D R ', 'FDR ')
+            if address['StreetName']:
+                streetname = address['StreetName'].title()
                 # Expand Service Road
                 # See https://github.com/osmlab/nycbuildings/issues/30
                 streetname = re.sub(r"(.*)\bSr\b(.*)", r"\1Service Road\2", streetname)
@@ -103,8 +106,8 @@ def convert(buildingsFile, osmOut):
                 streetname = streetname.replace(' Rd ', ' Road ')
                 streetname = streetname.replace(' Blvd ', ' Boulevard ')
                 result['addr:street'] = streetname
-            if address['ZIPCODE']:
-                result['addr:postcode'] = str(int(address['ZIPCODE']))
+            if address['ZipCode']:
+                result['addr:postcode'] = str(int(address['ZipCode']))
         return result
 
     # Appends new node or returns existing if exists.
@@ -189,36 +192,34 @@ def convert(buildingsFile, osmOut):
             osmXml.append(relation)
             way = relation
         way.append(etree.Element('tag', k='building', v='yes'))
-        if 'HEIGHT_ROO' in building['properties']:
-            height = round(((building['properties']['HEIGHT_ROO'] * 12) * 0.0254), 1)
+        if 'HEIGHT' in building['properties']:
+            height = round(((building['properties']['HEIGHT'] * 12) * 0.0254), 1)
             if height > 0:
                 way.append(etree.Element('tag', k='height', v=str(height)))
-        if 'BIN' in building['properties']:
-            way.append(etree.Element('tag', k='nycdoitt:bin', v=str(building['properties']['BIN'])))
+        if 'ELEV' in building['properties']:
+            height = round(((building['properties']['ELEV'] * 12) * 0.0254), 1)
+            if height > 0:
+                way.append(etree.Element('tag', k='elevation', v=str(height)))
+        if 'BLD_ID' in building['properties']:
+            way.append(etree.Element('tag', k='lacounty:bld_id', v=str(building['properties']['BLD_ID'])))
         if address: appendAddress(address, way)
 
     # Export buildings & addresses. Only export address with building if there is exactly
     # one address per building. Export remaining addresses as individual nodes.
-    allAddresses = []
     osmXml = etree.Element('osm', version='0.6', generator='alex@mapbox.com')
     for i in range(0, len(buildings)):
 
-        # Filter out special addresses categories A and B
         buildingAddresses = []
         for address in buildings[i]['properties']['addresses']:
-            if address['properties']['SPECIAL_CO'] not in ['A', 'B']:
-                buildingAddresses.append(address)
+            buildingAddresses.append(address)
         address = None
         if len(buildingAddresses) == 1:
             address = buildingAddresses[0]
         else:
             allAddresses.extend(buildingAddresses)
 
-        if int(buildings[i]['properties']['HEIGHT_ROO']) == 0:
-            if shape.area > 1e-09:
-                appendBuilding(buildings[i], buildingShapes[i], address, osmXml)
-        else:
-            appendBuilding(buildings[i], buildingShapes[i], address, osmXml)
+        appendBuilding(buildings[i], buildingShapes[i], address, osmXml)
+
 
     # Export any addresses that aren't the only address for a building.
     if (len(allAddresses) > 0):

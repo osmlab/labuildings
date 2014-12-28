@@ -1,6 +1,5 @@
 # Merge addresses into buildings they intersect with
 # Write them to merged/
-# TODO: extend this to use the parcels as an intermediate join
 from fiona import collection
 from rtree import index
 from shapely.geometry import asShape, Point, LineString
@@ -10,6 +9,8 @@ from glob import glob
 from multiprocessing import Pool
 import json
 
+useAINs = True
+
 def merge(buildingIn, addressIn, mergedOut):
     addresses = []
 
@@ -18,6 +19,10 @@ def merge(buildingIn, addressIn, mergedOut):
             shape = asShape(address['geometry'])
             shape.original = address
             addresses.append(shape)
+
+    geoid = re.match('^.*-(\d+)\.shp$', buildingIn).groups(0)[0]
+
+    #print "loaded", len(addresses), "addresses"
 
     # Load and index all buildings.
     buildings = []
@@ -31,16 +36,104 @@ def merge(buildingIn, addressIn, mergedOut):
             buildingShapes.append(shape)
             buildingIdx.add(len(buildings) - 1, shape.bounds)
 
+    #print "loaded", len(buildings), "buildings"
+
+    addressIntersections = {}
+
+    addressesOnBuildings = 0
+
     # Map addresses to buildings.
+
+    # Note, if there are multiple address points within a building, this
+    # adds each one as an array
     for address in addresses:
+        if address not in addressIntersections:
+            addressIntersections[address] = 0
         for i in buildingIdx.intersection(address.bounds):
             if buildingShapes[i].contains(address):
+                addressesOnBuildings += 1
+                addressIntersections[address] += 1
                 buildings[i]['properties']['addresses'].append(
                     address.original)
 
+    # Display the number of buildings that have 0 addresses, 1 address, 2 addresses, and so on...
+    numberOfAddressesCounter = {}
+
+    for building in buildings:
+        numberOfAddresses = len(building['properties']['addresses'])
+        if numberOfAddresses in numberOfAddressesCounter:
+            numberOfAddressesCounter[numberOfAddresses] += 1
+        else:
+            numberOfAddressesCounter[numberOfAddresses] = 1
+
+    strayAddresses = []
+
+    for addressKey in addressIntersections:
+        if addressIntersections[addressKey] > 1:
+            # Sanity check for addresses that intersected more than one building
+            print "address", addressKey, "interesected", addressIntersections[addressKey], "buildings"
+        if addressIntersections[addressKey] == 0:
+            # This address didn't hit any buildings. We need to export it separately
+            strayAddresses.append(addressKey.original);
+
+    buildingsWithAtLeastOneAddress = 0
+
+    for key in sorted(numberOfAddressesCounter.keys()):
+        #print numberOfAddressesCounter[key], "building(s) had", key, "address(es)"
+        if key > 0:
+            buildingsWithAtLeastOneAddress += numberOfAddressesCounter[key]
+
+    # Print an informative one-line message
+    print str(geoid) + ":", str(addressesOnBuildings) + "/" + str(len(addresses)), "(" + str(addressesOnBuildings*100/len(addresses)) + "%) addrs hit bldgs,", str(buildingsWithAtLeastOneAddress) + "/" + str(len(buildings)), "(" + str(buildingsWithAtLeastOneAddress*100/len(buildings)) + "%) bldgs have at least one addr"
+
+
+    if useAINs:
+        # Now try to join on AIN to match buildings and addresses on the same parcel.
+        # Only try this if the following conditions are true:
+        # 1. The building doesn't already have at least one address
+        # 2. The AIN is present on only one building (ignore parcels w/ house + garage)
+        # 3. The AIN is present on only one address node (ignore multi-address parcels)
+
+        ainMatches = 0;
+
+        # First populate our AIN lookup
+        AINs = {}
+        for building in buildings:
+            buildingAIN = building['properties']['AIN']
+            if buildingAIN not in AINs:
+                AINs[buildingAIN] = {}
+            if 'buildings' not in AINs[buildingAIN]:
+                AINs[buildingAIN]['buildings'] = []
+            AINs[buildingAIN]['buildings'].append(building)
+        for address in addresses:
+            addressAIN = address.original['properties']['AIN']
+            if addressAIN not in AINs:
+                AINs[addressAIN] = {}
+            if 'addresses' not in AINs[addressAIN]:
+                AINs[addressAIN]['addresses'] = []
+            AINs[addressAIN]['addresses'].append(address.original)
+
+        # Now look for buildings that don't yet have addresses
+        for building in buildings:
+            if len(building['properties']['addresses']) < 1:
+                ain = building['properties']['AIN']
+                # And confirm AIN is only on one address and one building
+                if ain in AINs and 'buildings' in AINs[ain] and len(AINs[ain]['buildings']) == 1 and 'addresses' in AINs[ain] and len(AINs[ain]['addresses']) == 1:
+                    ainMatches += 1;
+                    foundAddress = AINs[ain]['addresses'][0]
+                    # Now we assign the address to the building
+                    building['properties']['addresses'].append(foundAddress)
+                    strayAddresses.remove(foundAddress)
+
+        print geoid + ": using AINs matched", ainMatches, "more addresses"
+
+    # Note: previous versions of this script would only export buildings, 
+    # but now we append the list of stray (nonintersecting) addresses.
+    # convert.py has been modified as well, to accept the new format
+
     with open(mergedOut, 'w') as outFile:
-	    outFile.writelines(json.dumps(buildings, indent=4))
-	    print 'Exported ' + mergedOut
+        outFile.writelines(json.dumps(buildings+strayAddresses, indent=4))
+        #print 'Exported ' + mergedOut
 
 def prep(fil3):
     matches = re.match('^.*-(\d+)\.shp$', fil3).groups(0)
