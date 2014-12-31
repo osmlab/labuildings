@@ -13,7 +13,7 @@ AddressPt.zip:
 	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/06/lacounty_address_points.zip" -o AddressPt.zip
 
 BlockGroupPly.zip:
-	curl -L "http://www2.census.gov/geo/tiger/GENZ2013/cb_2013_06_bg_500k.zip" -o BlockGroupPly.zip
+	curl -L "http://www2.census.gov/geo/tiger/TIGER2014/BG/tl_2014_06_bg.zip" -o BlockGroupPly.zip
 
 ParcelPly.zip:
 	curl -L "http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip" -o ParcelPly.zip
@@ -34,7 +34,10 @@ AddressPt: AddressPt.zip
 BlockGroupPly: BlockGroupPly.zip
 	rm -rf BlockGroupPly
 	unzip BlockGroupPly.zip -d BlockGroupPly
-	ogr2ogr -where "COUNTYFP='037'" BlockGroupPly/BlockGroupPly.shp BlockGroupPly/cb_2013_06_bg_500k.shp
+
+BlockGroupPly/BlockGroupPly.shp: BlockGroupPly
+	rm -rf BlockGroupPly/BlockGroupPly.*
+	ogr2ogr -where "COUNTYFP='037'" BlockGroupPly/BlockGroupPly.shp BlockGroupPly/tl_2014_06_bg.shp
 
 ParcelPly: ParcelPly.zip
 	rm -rf ParcelPly
@@ -49,7 +52,7 @@ AddressPt/addresses.shp: AddressPt
 	rm -f AddressPt/addresses.*
 	ogr2ogr -t_srs EPSG:4326 -overwrite AddressPt/addresses.shp AddressPt/lacounty_address_points.shp
 
-BlockGroupPly/blockgroups.shp: BlockGroupPly
+BlockGroupPly/blockgroups.shp: BlockGroupPly/BlockGroupPly.shp
 	rm -f BlockGroupPly/blockgroups.*
 	ogr2ogr -t_srs EPSG:4326 BlockGroupPly/blockgroups.shp BlockGroupPly/BlockGroupPly.shp
 
@@ -57,7 +60,7 @@ ParcelPly/parcels.shp: ParcelPly
 	rm -f ParcelPly/parcels.*
 	ogr2ogr -t_srs EPSG:4326 ParcelPly/parcels.shp ParcelPly/Parcel.shp
 
-BlockGroupPly/blockgroups.geojson: BlockGroupPly
+BlockGroupPly/blockgroups.geojson: BlockGroupPly/BlockGroupPly.shp
 	rm -f BlockGroupPly/blockgroups.geojson
 	rm -f BlockGroupPly/blockgroups-900913.geojson
 	ogr2ogr -simplify 3 -t_srs EPSG:900913 -f "GeoJSON" BlockGroupPly/blockgroups-900913.geojson BlockGroupPly/BlockGroupPly.shp
