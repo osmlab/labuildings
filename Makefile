@@ -1,10 +1,9 @@
-all: ParcelPly/parcels.shp BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks merged osm
+all: BldgPly/buildings.shp AddressPt/addresses.shp BlockGroupPly/blockgroups.shp directories chunks merged osm
 
 clean:
 	rm -f BldgPly.zip
 	rm -f AddressPt.zip
 	rm -f BlockGroupPly.zip
-	rm -f ParcelPly.zip
 
 BldgPly.zip:
 	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/11/lariac_buildings_2008.zip" -o BldgPly.zip
@@ -14,9 +13,6 @@ AddressPt.zip:
 
 BlockGroupPly.zip:
 	curl -L "http://www2.census.gov/geo/tiger/TIGER2014/BG/tl_2014_06_bg.zip" -o BlockGroupPly.zip
-
-ParcelPly.zip:
-	curl -L "http://gis.ats.ucla.edu/data/TaxAssessor/Parcel.zip" -o ParcelPly.zip
 
 # Other potential data sources
 # LA City Community Plan Areas: https://data.lacity.org/api/geospatial/pu8r-72kk?method=export&format=Shapefile
@@ -39,10 +35,6 @@ BlockGroupPly/BlockGroupPly.shp: BlockGroupPly
 	rm -rf BlockGroupPly/BlockGroupPly.*
 	ogr2ogr -where "COUNTYFP='037'" BlockGroupPly/BlockGroupPly.shp BlockGroupPly/tl_2014_06_bg.shp
 
-ParcelPly: ParcelPly.zip
-	rm -rf ParcelPly
-	unzip ParcelPly.zip -d ParcelPly
-
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
 # Specify CODE=Building to ignore CODE=Courtyard
@@ -56,20 +48,15 @@ BlockGroupPly/blockgroups.shp: BlockGroupPly/BlockGroupPly.shp
 	rm -f BlockGroupPly/blockgroups.*
 	ogr2ogr -t_srs EPSG:4326 BlockGroupPly/blockgroups.shp BlockGroupPly/BlockGroupPly.shp
 
-ParcelPly/parcels.shp: ParcelPly
-	rm -f ParcelPly/parcels.*
-	ogr2ogr -t_srs EPSG:4326 ParcelPly/parcels.shp ParcelPly/Parcel.shp
-
 BlockGroupPly/blockgroups.geojson: BlockGroupPly/BlockGroupPly.shp
 	rm -f BlockGroupPly/blockgroups.geojson
 	rm -f BlockGroupPly/blockgroups-900913.geojson
 	ogr2ogr -simplify 3 -t_srs EPSG:900913 -f "GeoJSON" BlockGroupPly/blockgroups-900913.geojson BlockGroupPly/BlockGroupPly.shp
 #	python tasks.py BlockGroupPly/blockgroups-900913.geojson > BlockGroupPly/blockgroups.geojson
 
-chunks: directories AddressPt/addresses.shp BldgPly/buildings.shp ParcelPly/parcels.shp
+chunks: directories AddressPt/addresses.shp BldgPly/buildings.shp
 	python chunk.py AddressPt/addresses.shp BlockGroupPly/blockgroups.shp chunks/addresses-%s.shp GEOID
 	python chunk.py BldgPly/buildings.shp BlockGroupPly/blockgroups.shp chunks/buildings-%s.shp GEOID
-	python chunk.py ParcelPly/parcels.shp BlockGroupPly/blockgroups.shp chunks/parcels-%s.shp GEOID
 
 merged: directories
 #	python merge.py
@@ -88,10 +75,9 @@ tilemill:
 	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/labuildings
 
 # Load database for Mapbox Studio
-database: AddressPt/addresses.shp BldgPly/buildings.shp ParcelPly/parcels.shp BlockGroupPly/blockgroups.shp
+database: AddressPt/addresses.shp BldgPly/buildings.shp BlockGroupPly/blockgroups.shp
 	createdb labuildings
 	psql labuildings -c "CREATE EXTENSION postgis;"
 	shp2pgsql AddressPt/address.shp | psql labuildings
 	shp2pgsql BldgPly/buildings.shp | psql labuildings
 	shp2pgsql BlockGroupPly/blockgroups.shp | psql labuildings
-	shp2pgsql ParcelPly/parcels.shp | psql labuildings
