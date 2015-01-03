@@ -1,15 +1,18 @@
 LA Buildings
 ===========
 
-Los Angeles County building import
+Los Angeles County building and address import
 
 Generates an OSM file of buildings with addresses per census block groups,
 ready to be used in JOSM for a manual review and upload to OpenStreetMap. This repository is based heavily on the [NYC building import](https://github.com/osmlab/nycbuildings)
 
 This README is about data conversion. See also the [page on the OSM wiki](https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import).
 
+You may want to browse the [issues](https://github.com/osmlab/labuildings/issues) and/or "watch" this repo (see button at the top of this page) to follow along with the discussion.
 
 ![LA buildings screenshot](la_buildings_screenshot.png?raw=true "LA buildings screenshot from QGIS")
+
+Sample .osm files (**not ready for import yet**) are in this [zip file](https://github.com/osmlab/labuildings/blob/master/venice_osm.zip?raw=true).
 
 Browse a slippy map of the data [here](https://api.tiles.mapbox.com/v3/stamen.labuildings/page.html#17/33.99024/-118.46586)
 
@@ -87,11 +90,10 @@ You can run stages separately, like so:
 
 ## Features
 
-- Conflates buildings and addresses
 - Cleans address names
-- Exports one OSM XML building file per LA county block group
-- Exports OSM XML address files for addresses that pertain to buildings with
-  more than one address
+- Exports one OSM XML building and address file per LA county block group
+- Conflates buildings and addresses (only when there is one address point inside a building polygon)
+- Exports remaining addresses as points (for buildings with more than one address, or addresses not on a building)
 - Handles multipolygons
 - Simplifies building shapes
 
