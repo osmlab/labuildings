@@ -14,7 +14,7 @@ You may want to browse the [issues](https://github.com/osmlab/labuildings/issues
 
 Sample .osm files (**not ready for import yet**) are in this [zip file](https://github.com/osmlab/labuildings/blob/master/venice_osm.zip?raw=true).
 
-Browse a slippy map of the data [here](https://api.tiles.mapbox.com/v3/stamen.labuildings/page.html#17/33.99024/-118.46586)
+Browse a slippy map of the data [here](http://stamen.cartodb.com/u/stamen-org/viz/ff53ba6e-9788-11e4-945a-f23c91504230/public_map)
 
 
 ## Prerequisites
