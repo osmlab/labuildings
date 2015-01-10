@@ -99,4 +99,120 @@ You can run stages separately, like so:
 
 ## Attribute mapping
 
+### Address attributes
+
+* **AIN** - Parcel this address falls inside
+
+	* Ignore (although `merge.py` uses this to map stray addresses to buildings)
+
+* **Numprefix** - Number prefix
+
+	* **Ignore?** These are extremely rare, mainly showing up for addresses in Lakewood Center Mall, Lakewood CA.
+
+* **Number** - House Number
+
+	* Map to `addr:housenumber` using `formatHousenumber()` function
+
+* **NumSuffix** - House Number Suffix (1/2, 3/4 etc)
+
+	* ???
+
+* **PreMod** - Prefix Modifier
+
+	* ???
+
+* **PreDir** - Prefix Direction (E, S, W, N)
+
+	* ???
+
+* **PreType** - Prefix Type (Ave, Avenida, etc)
+
+	* ???
+
+* **STArticle** - Street Article (de la, les, etc)
+
+	* ???
+
+* **StreetName** - Street Name
+
+	* Change to titlecase (but full lowercase on numeral suffixes "st", "nd", "rd", "th")
+	* Map to `addr:street`
+
+* **PostType** - Post Type (Ave, St, Dr, Blvd, etc)
+
+	* Change to titlecase
+	* Append to `addr:street`
+
+* **PostDir** - Post Direction (N, S, E, W)
+
+	* ???
+
+* **PostMod** - Post Modifier (OLD, etc)
+
+	* ???
+
+* A series of building and floor information fields - not currently filled out
+
+	* Ignore
+
+* **UnitType** - Unit Type (#, Apt, etc) - where these are known
+
+	* **Ignore?**
+
+* **UnitName** - Unit Name (A, 1, 100, etc)
+
+	* Map to `addr:unit`
+
+* **Zipcode** - Zipcode
+
+	* Map to `addr:postcode`
+
+* **Zip4** - Not currently filled out
+
+	* Ignore
+
+* **LegalComm** - Legal City or primary postal city in Unincorporated Areas
+
+	* Ignore ? Or fall back on this if `PCITY1` is not available?
+	* Potentially could map this to `is_in:city`, but given that OSM already has good city boundaries this seems unnecessary.
+
+* **PostComm1** - Primary Postal Community
+
+	* Ignore ? Or fall back on this if `PCITY1` is not available?
+
+* **PostComm2** - Secondary Postal Community
+
+	* Ignore
+
+* **PostComm3**- Third Postal Community
+
+	* Ignore
+
+* **Source** - source of the address point, one of: Assessor, LACity, Regional Planning, other
+
+	* Ignore: this generally corresponds to whichever city the address falls within
+
+* **SourceID** - ID of the Address in the source system
+
+    * Ignore
+
+* **MADrank** - Method Accuracy Description (MAD) provides a number between 1 and 100 detailing the accuracy of the location.
+
+	* Ignore
+
+* **PCITY1** - 1st postal city (from the USPS)
+
+	* Change to titlecase
+	* Map to `addr:city`
+
+* **PCITY2** - 2nd postal city (from the USPS)
+
+	* Ignore: mostly null or same as LegalComm
+
+* **PCITY3** - 3rd postal city (from the USPS)
+
+	* Ignore: mostly null
+
+### Building attributes
+
 TBD. See https://github.com/osmlab/labuildings/issues/3
