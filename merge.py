@@ -74,7 +74,7 @@ def merge(buildingIn, addressIn, mergedOut):
             print "address", addressKey, "interesected", addressIntersections[addressKey], "buildings"
         if addressIntersections[addressKey] == 0:
             # This address didn't hit any buildings. We need to export it separately
-            strayAddresses.append(addressKey.original);
+            strayAddresses.append(addressKey.original)
 
     buildingsWithAtLeastOneAddress = 0
 
@@ -84,8 +84,15 @@ def merge(buildingIn, addressIn, mergedOut):
             buildingsWithAtLeastOneAddress += numberOfAddressesCounter[key]
 
     # Print an informative one-line message
-    print str(geoid) + ":", str(addressesOnBuildings) + "/" + str(len(addresses)), "(" + str(addressesOnBuildings*100/len(addresses)) + "%) addrs hit bldgs,", str(buildingsWithAtLeastOneAddress) + "/" + str(len(buildings)), "(" + str(buildingsWithAtLeastOneAddress*100/len(buildings)) + "%) bldgs have at least one addr"
+    statusmessage = str(geoid) + ": " + str(addressesOnBuildings) + "/" + str(len(addresses))
+    if len(addresses) > 0:
+        statusmessage += " (" + str(addressesOnBuildings*100/len(addresses)) + "%)"
+    statusmessage += " addrs hit bldgs, " + str(buildingsWithAtLeastOneAddress) + "/" + str(len(buildings))
+    if len(buildings) > 0:
+        statusmessage += " (" + str(buildingsWithAtLeastOneAddress*100/len(buildings)) + "%)"
+    statusmessage += " bldgs have at least one addr"
 
+    print statusmessage
 
     if useAINs:
         # Now try to join on AIN to match buildings and addresses on the same parcel.
@@ -100,18 +107,24 @@ def merge(buildingIn, addressIn, mergedOut):
         AINs = {}
         for building in buildings:
             buildingAIN = building['properties']['AIN']
-            if buildingAIN not in AINs:
-                AINs[buildingAIN] = {}
-            if 'buildings' not in AINs[buildingAIN]:
-                AINs[buildingAIN]['buildings'] = []
-            AINs[buildingAIN]['buildings'].append(building)
-        for address in addresses:
-            addressAIN = address.original['properties']['AIN']
-            if addressAIN not in AINs:
-                AINs[addressAIN] = {}
-            if 'addresses' not in AINs[addressAIN]:
-                AINs[addressAIN]['addresses'] = []
-            AINs[addressAIN]['addresses'].append(address.original)
+            # Make sure AIN is not null
+            if buildingAIN:
+                if buildingAIN not in AINs:
+                    AINs[buildingAIN] = {}
+                if 'buildings' not in AINs[buildingAIN]:
+                    AINs[buildingAIN]['buildings'] = []
+                AINs[buildingAIN]['buildings'].append(building)
+
+        # only populate with stray addresses
+        for address in strayAddresses:
+            addressAIN = address['properties']['AIN']
+            # Make sure AIN is not null
+            if addressAIN:
+                if addressAIN not in AINs:
+                    AINs[addressAIN] = {}
+                if 'addresses' not in AINs[addressAIN]:
+                    AINs[addressAIN]['addresses'] = []
+                AINs[addressAIN]['addresses'].append(address)
 
         # Now look for buildings that don't yet have addresses
         for building in buildings:
@@ -123,7 +136,10 @@ def merge(buildingIn, addressIn, mergedOut):
                     foundAddress = AINs[ain]['addresses'][0]
                     # Now we assign the address to the building
                     building['properties']['addresses'].append(foundAddress)
-                    strayAddresses.remove(foundAddress)
+                    if foundAddress in strayAddresses:
+                        strayAddresses.remove(foundAddress)
+                    else:
+                        print foundAddress, "not in strayAddresses! We just matched it to", building
 
         print geoid + ": using AINs matched", ainMatches, "more addresses"
 
