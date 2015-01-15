@@ -212,9 +212,9 @@ def convert(buildingsFile, osmOut):
             if height > 0:
                 way.append(etree.Element('tag', k='height', v=str(height)))
         if 'ELEV' in building['properties']:
-            height = round(((building['properties']['ELEV'] * 12) * 0.0254), 1)
-            if height > 0:
-                way.append(etree.Element('tag', k='elevation', v=str(height)))
+            elevation = round(((building['properties']['ELEV'] * 12) * 0.0254), 1)
+            if elevation > 0:
+                way.append(etree.Element('tag', k='elevation', v=str(elevation)))
         if 'BLD_ID' in building['properties']:
             way.append(etree.Element('tag', k='lacounty:bld_id', v=str(building['properties']['BLD_ID'])))
         if address: appendAddress(address, way)
