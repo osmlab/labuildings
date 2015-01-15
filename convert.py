@@ -24,7 +24,7 @@ def convert(buildingsFile, osmOut):
     buildingShapes = []
     buildingIdx = index.Index()
     for feature in features:
-        if feature['geometry']['type'] == 'Polygon':
+        if feature['geometry']['type'] == 'Polygon' or feature['geometry']['type'] == 'MultiPolygon':
             buildings.append(feature)
             shape = asShape(feature['geometry'])
             buildingShapes.append(shape)
