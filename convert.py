@@ -117,8 +117,8 @@ def convert(buildingsFile, osmOut):
                 result['addr:street'] = streetname
             if address['PCITY1']:
                 result['addr:city'] = address['PCITY1'].title()
-            elif address['LEGALCOMM']:
-                result['addr:city'] = address['LEGALCOMM'].title()
+            elif address['LegalComm']:
+                result['addr:city'] = address['LegalComm'].title()
             if address['ZipCode']:
                 result['addr:postcode'] = str(int(address['ZipCode']))
             if address['UnitName']:
