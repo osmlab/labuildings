@@ -61,6 +61,8 @@ def convert(buildingsFile, osmOut):
         #            pass
         #    return addr
         number = suffix(p['Number'], p['NumSuffix'])
+        if p['NumPrefix']:
+            number = p['NumPrefix'] + number
         return number
 
     # Converts an address
@@ -68,32 +70,25 @@ def convert(buildingsFile, osmOut):
         result = dict()
         if all (k in address for k in ('Number', 'StreetName')):
             if address['Number']:
-                result['addr:housenumber'] = formatHousenumber(address) # TODO: add NumSuffix
+                result['addr:housenumber'] = formatHousenumber(address)
             if address['StreetName']:
 
                 # Titlecase
                 streetname = address['StreetName'].title()
+                if address['StArticle']:
+                    streetname = address['StArticle'].title() + " " + streetname
+                if address['PreType']:
+                    streetname = address['PreType'].title() + " " + streetname
+                if address['PreDir']:
+                    streetname = address['PreDir'].title() + " " + streetname
+                if address['PreMod']:
+                    streetname = address['PreMod'].title() + " " + streetname
                 if address['PostType']:
                     streetname = streetname + " " + address['PostType'].title()
-                # Expand Service Road
-                # See https://github.com/osmlab/nycbuildings/issues/30
-                streetname = re.sub(r"(.*)\bSr\b(.*)", r"\1Service Road\2", streetname)
-                # Expand cardinal directions on Service Roads
-                streetname = re.sub(r"(.*\bService Road\s)\bN\b(.*)", r"\1North\2", streetname)
-                streetname = re.sub(r"(.*\bService Road\s)\bE\b(.*)", r"\1East\2", streetname)
-                streetname = re.sub(r"(.*\bService Road\s)\bS\b(.*)", r"\1South\2", streetname)
-                streetname = re.sub(r"(.*\bService Road\s)\bW\b(.*)", r"\1West\2", streetname)
-                streetname = re.sub(r"(.*)Expwy(.*)", r"\1Expressway\2", streetname)
-
-
-                # Add ordinal suffixes to numerals (in NYC they don't have them)
-                streetname = re.sub(r"(.*)(\d*11)\s+(.*)", r"\1\2th \3", streetname)
-                streetname = re.sub(r"(.*)(\d*12)\s+(.*)", r"\1\2th \3", streetname)
-                streetname = re.sub(r"(.*)(\d*13)\s+(.*)", r"\1\2th \3", streetname)
-                streetname = re.sub(r"(.*)(\d*1)\s+(.*)", r"\1\2st \3", streetname)
-                streetname = re.sub(r"(.*)(\d*2)\s+(.*)", r"\1\2nd \3", streetname)
-                streetname = re.sub(r"(.*)(\d*3)\s+(.*)", r"\1\2rd \3", streetname)
-                streetname = re.sub(r"(.*)(\d+)\s+(.*)", r"\1\2th \3", streetname)
+                if address['PostDir']:
+                    streetname = streetname + " " + address['PostDir'].title()
+                if address['PostMod']:
+                    streetname = streetname + " " + address['PostMod'].title()
 
                 # Fix titlecase on 1St, 2Nd, 3Rd, 4Th, etc
                 streetname = re.sub(r"(.*)(\d+)St\s*(.*)", r"\1\2st \3", streetname)
@@ -101,21 +96,29 @@ def convert(buildingsFile, osmOut):
                 streetname = re.sub(r"(.*)(\d+)Rd\s*(.*)", r"\1\2rd \3", streetname)
                 streetname = re.sub(r"(.*)(\d+)Th\s*(.*)", r"\1\2th \3", streetname)
 
-                # Expand 'Ft' -> 'Fort'
-                if streetname[0:3] == 'Ft ': streetname = 'Fort ' + streetname[3:]
                 # Expand 'St ' -> 'Saint'
+                # relevant for:
+                #   'St Clair'
+                #   'St Louis'
+                #   'St James'
+                #   'St James Park'
+                #   'St Andrews'
+                #   'St Nicolas'
+                #   'St Cloud'
+                #   'St Ambrose'
+                #   'St Bonaventure'
+                #   'St Joseph'
+                #   'St Tropez'
                 if streetname[0:3] == 'St ': streetname = 'Saint ' + streetname[3:]
-                # Expand 'Rev ' -> 'Reverend '
-                if streetname[0:4] == 'Rev ': streetname = 'Reverend ' + streetname[3:]
-                # Expand middlename ' St John' fix
-                streetname = streetname.replace('St John', 'Saint John')
                 # Middle name expansions
                 streetname = streetname.replace(' St ', ' Street ')
                 streetname = streetname.replace(' Rd ', ' Road ')
                 streetname = streetname.replace(' Blvd ', ' Boulevard ')
-                result['addr:street'] = streetname  # TODO: add PreMod, PreDir, PreType, STArticle, PostType, PostDir, PostMod
+                result['addr:street'] = streetname
             if address['PCITY1']:
                 result['addr:city'] = address['PCITY1'].title()
+            elif address['LEGALCOMM']:
+                result['addr:city'] = address['LEGALCOMM'].title()
             if address['ZipCode']:
                 result['addr:postcode'] = str(int(address['ZipCode']))
             if address['UnitName']:
@@ -144,7 +147,7 @@ def convert(buildingsFile, osmOut):
             node = appendNewNode(coord, osmXml)
             if i == 1: firstNid = node.get('id')
             way.append(etree.Element('nd', ref=node.get('id')))
-            
+
             # Check each way segment for intersecting nodes
             int_nodes = {}
             try:
