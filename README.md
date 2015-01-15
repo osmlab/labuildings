@@ -99,15 +99,18 @@ You can run stages separately, like so:
 
 ## Attribute mapping
 
+See the `convert.py` script to see the implementation of these transformations.
+
 ### Address attributes
 
 * **AIN** - Parcel this address falls inside
 
 	* Ignore (although `merge.py` uses this to map stray addresses to buildings)
 
-* **Numprefix** - Number prefix
+* **NumPrefix** - Number prefix
 
-	* **Ignore?** These are extremely rare, mainly showing up for addresses in Lakewood Center Mall, Lakewood CA.
+	* Note: These are extremely rare (only 33 of them), mainly showing up for addresses in Lakewood Center Mall, Lakewood CA. Handling these would require treating `addr:housenumber` as a string, not an integer. However, the OSM wiki says this is permitted.
+	* Prepend to `addr:housenumber` using `formatHousenumber()` function
 
 * **Number** - House Number
 
@@ -115,23 +118,32 @@ You can run stages separately, like so:
 
 * **NumSuffix** - House Number Suffix (1/2, 3/4 etc)
 
-	* ???
+	* Append to `addr:housenumber` using `formatHousenumber()` function
 
 * **PreMod** - Prefix Modifier
 
-	* ???
+	* Examples: **OLD** RANCH ROAD, **LOWER** ASUZA ROAD
+	* Change to titlecase
+	* Prepend to `addr:street`
 
 * **PreDir** - Prefix Direction (E, S, W, N)
 
-	* ???
+	* Examples: **SOUTH** RANCH ROAD
+	* Note: the data is already expanded into "NORTH", "SOUTH", etc. We do not condense into "N", "S".
+	* Change to titlecase
+	* Prepend to `addr:street`
 
 * **PreType** - Prefix Type (Ave, Avenida, etc)
 
-	* ???
+	* Examples: NORTH **VIA** SORRENTO, **RUE** DE LA PIERRE
+	* Change to titlecase
+	* Prepend to `addr:street`
 
-* **STArticle** - Street Article (de la, les, etc)
+* **StArticle** - Street Article (de la, les, etc)
 
-	* ???
+	* Examples: RUE **DE LA** PIERRE
+	* Change to titlecase
+	* Prepend to `addr:street`
 
 * **StreetName** - Street Name
 
@@ -145,15 +157,16 @@ You can run stages separately, like so:
 
 * **PostDir** - Post Direction (N, S, E, W)
 
-	* ???
+	* Examples: MARINA DRIVE **SOUTH**
+	* Note: the data is already expanded into "NORTH", "SOUTH", etc. We do not condense into "N", "S".
+	* Change to titlecase
+	* Append to `addr:street`
 
 * **PostMod** - Post Modifier (OLD, etc)
 
-	* ???
-
-* A series of building and floor information fields - not currently filled out
-
-	* Ignore
+	* Note: this is always null in the current data. Treat like PreMod for consistency.
+	* Change to titlecase
+	* Append to `addr:street`
 
 * **UnitType** - Unit Type (#, Apt, etc) - where these are known
 
@@ -167,26 +180,14 @@ You can run stages separately, like so:
 
 	* Map to `addr:postcode`
 
-* **Zip4** - Not currently filled out
+* **Zip4** - Not currently filled out in source data
 
 	* Ignore
 
 * **LegalComm** - Legal City or primary postal city in Unincorporated Areas
 
-	* Ignore ? Or fall back on this if `PCITY1` is not available?
+	* Fall back to this if `PCITY1` is null. 
 	* Potentially could map this to `is_in:city`, but given that OSM already has good city boundaries this seems unnecessary.
-
-* **PostComm1** - Primary Postal Community
-
-	* Ignore ? Or fall back on this if `PCITY1` is not available?
-
-* **PostComm2** - Secondary Postal Community
-
-	* Ignore
-
-* **PostComm3**- Third Postal Community
-
-	* Ignore
 
 * **Source** - source of the address point, one of: Assessor, LACity, Regional Planning, other
 
@@ -202,16 +203,17 @@ You can run stages separately, like so:
 
 * **PCITY1** - 1st postal city (from the USPS)
 
+	* Note: this is null for 1469 records. When null, fall back to `LegalComm`.
 	* Change to titlecase
 	* Map to `addr:city`
 
 * **PCITY2** - 2nd postal city (from the USPS)
 
-	* Ignore: mostly null or same as LegalComm
+	* Ignore: mostly null or same as LegalComm. Always null when `PCITY1` is null.
 
 * **PCITY3** - 3rd postal city (from the USPS)
 
-	* Ignore: mostly null
+	* Ignore: mostly null. Always null when `PCITY1` is null.
 
 ### Building attributes
 
