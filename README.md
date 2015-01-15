@@ -217,4 +217,41 @@ See the `convert.py` script to see the implementation of these transformations.
 
 ### Building attributes
 
-TBD. See https://github.com/osmlab/labuildings/issues/3
+* **CODE** - Building type (either Building or Courtyard).
+
+	* Ignore
+	* Note: only CODE='Building' is used for this import. We ignore CODE='Courtyard'. This filtering step happens in the `Makefile`
+
+* **BLD_ID** - unique building ID
+
+	* **Ignore** ???
+	* Or, map to a special OSM tag like `lacounty:bld_id`
+
+* **HEIGHT** - the height of the highest major feature of the building (not including roof objects like antennas and chimneys)
+
+	* Convert from inches to meters
+	* Round to one decimal place
+	* Map to `height` tag, only if height > 0
+
+* **ELEV** - the elevation of the building
+
+	* Convert from inches to meters
+	* Round to one decimal place
+	* Map to `elevation` tag, only if elevation > 0
+	
+* **AREA** - the Roof area
+
+	* Ignore: mostly null
+
+* **SOURCE** - the data source (either LARIAC2, Pasadena, Palmdale, or Glendale)
+
+	* Ignore
+	
+* **DATE** - Date Captured (2006, 2008, or blank)
+
+	* Ignore
+	
+* **AIN** - the Parcel ID number.
+
+	* Ignore (although `merge.py` uses this to map stray addresses to buildings)
+
