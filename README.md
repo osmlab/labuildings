@@ -8,7 +8,7 @@ ready to be used in JOSM for a manual review and upload to OpenStreetMap. This r
 
 This README is about data conversion. See also the [page on the OSM wiki](https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import).
 
-You may want to browse the [issues](https://github.com/osmlab/labuildings/issues) and/or "watch" this repo (see button at the top of this page) to follow along with the discussion.
+**HOW YOU CAN GET INVOLVED:** You may want to browse the [issues](https://github.com/osmlab/labuildings/issues) and/or "watch" this repo (see button at the top of this page) to follow along with the discussion.
 
 ![LA buildings screenshot](la_buildings_screenshot.png?raw=true "LA buildings screenshot from QGIS")
 
