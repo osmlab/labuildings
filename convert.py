@@ -19,18 +19,30 @@ getcontext().prec = 16
 def convert(buildingsFile, osmOut):
     with open(buildingsFile) as f:
         features = json.load(f)
-    allAddresses = []
+    allAddresses = {}
     buildings = []
     buildingShapes = []
     buildingIdx = index.Index()
+
+    # Returns the coordinates for this address
+    def keyFromAddress(address):
+        return str(address['geometry']['coordinates'][0]) + "," + str(address['geometry']['coordinates'][1])
+
     for feature in features:
         if feature['geometry']['type'] == 'Polygon' or feature['geometry']['type'] == 'MultiPolygon':
             buildings.append(feature)
             shape = asShape(feature['geometry'])
             buildingShapes.append(shape)
             buildingIdx.add(len(buildingShapes) - 1, shape.bounds)
+
+        # These are the addresses that don't overlap any buildings
         elif feature['geometry']['type'] == 'Point':
-            allAddresses.append(feature)
+            # The key is the coordinates of this address. Track how many addresses share these coords.
+            key = keyFromAddress(feature)
+            if key in allAddresses:
+                allAddresses[key].append(feature)
+            else:
+                allAddresses[key] = [feature]
 
         else:
             print "geometry of unknown type:", feature['geometry']['type']
@@ -125,6 +137,85 @@ def convert(buildingsFile, osmOut):
                 result['addr:unit'] = address['UnitName']
         return result
 
+    # Distills coincident addresses into one address where possible.
+    # Takes an array of addresses and returns an array of 1 or more addresses
+    def distillAddresses(addresses):
+        # Only distill addresses if the following conditions are true:
+        # 1) the addresses share the same coordinates.
+        # AND
+        # 2a) all the attributes are the same _except_ the unit number/name
+        # OR
+        # 2b) the street number is the same but the street names are referring to the same thing
+
+        outputAddresses = []
+
+        # First, group the addresses into separate lists for each unique location
+        addressesByCoords = {}
+        for address in addresses:
+            key = keyFromAddress(address)
+            if key in addressesByCoords:
+                addressesByCoords[key].append(address)
+            else:
+                addressesByCoords[key] = [address]
+
+        # loop over unique coordinates
+        for key in addressesByCoords:
+            # Here see if we can collapse any of these addresses at the same coords.
+
+            # addressesByCoords[key] is an array of addresses at this location.
+
+            # We are only looking for the 2 possibilities above (2a) and (2b).
+            # If the situation is more complicated, change nothing.
+            outputAddresses.extend(distillAddressesAtPoint(addressesByCoords[key]))
+
+        return outputAddresses
+
+    # This function is called by distillAddresses.
+    # It assumes all addresses are at the same coordinates.
+    # Returns an array of 1 or more addresses
+    def distillAddressesAtPoint(addresses):
+
+        if len(addresses) == 1:
+            return addresses
+
+        firstAddress = addresses[0]
+
+        # (2a) If the first address is an apartment, see if all the rest are too.
+
+        # NOTE: sometimes an apartment building has a few address points that lack a UnitName...
+        # ...so checking for the presence of UnitName in firstAddress wouldn't always work.
+        print "Testing to see if these are apartments...", '\t'.join([str(firstAddress['properties']['Number']), str(firstAddress['properties']['StreetName']), str(firstAddress['properties']['UnitName'])])
+
+        # Compare subsequent addresses in the array to the first address.
+        # Hence, range starts at 1.
+        for i in range(1, len(addresses)):
+            if not areSameAddressExceptUnit(firstAddress, addresses[i]):
+                #print "...but this address was different", addresses[i]
+                print "No, this address was different", '\t'.join([str(addresses[i]['properties']['Number']), str(addresses[i]['properties']['StreetName']), str(addresses[i]['properties']['UnitName'])])
+                break
+            # else, keep going
+
+        else: # else for the `for` statement. Executes only if `break` never did.
+            # We checked them all, and they're all the same except UnitName.
+            # In this case the apartment data is useless to OSM because the
+            # apartment nodes are all on top of each other.
+            # So, discard the address information and return just one address.
+            firstAddress['properties']['UnitName'] = None
+            print "Yes they were apartments! Collapsed", len(addresses), "into one"
+            return [firstAddress]
+
+        # TODO: (2b) Check if the street number is all the same.
+        # For this, we need a list of alternative names (like HWY 1, etc)...
+        # ...and we need to know which authoritative name to keep.
+        # TODO continue here
+        return addresses
+
+    def areSameAddressExceptUnit(a1, a2):
+        for key in ['NumPrefix', 'Number', 'NumSuffix', 'PreMod', 'PreDir', 'PreType', 'StArticle', 'StreetName', 'PostType', 'PostDir', 'PostMod', 'ZipCode', 'LegalComm', 'PCITY1']:
+            if a1['properties'][key] != a2['properties'][key]:
+                return False
+        return True
+
     # Appends new node or returns existing if exists.
     nodes = {}
     def appendNewNode(coords, osmXml):
@@ -132,6 +223,22 @@ def convert(buildingsFile, osmOut):
         rlat = int(float(coords[1]*10**7))
         if (rlon, rlat) in nodes:
             return nodes[(rlon, rlat)]
+        node = etree.Element('node', visible = 'true', id = str(newOsmId('node')))
+        node.set('lon', str(Decimal(coords[0])*Decimal(1)))
+        node.set('lat', str(Decimal(coords[1])*Decimal(1)))
+        nodes[(rlon, rlat)] = node
+        osmXml.append(node)
+        return node
+
+    # Sometimes we want to force overlapping nodes, such as with addresses.
+    # This way they'll show up in JOSM and the contributor can deal with them manually.
+    # Otherwise, we might try to apply multiple address tags to the same node...
+    # ...which is also incorrect, but harder to detect.
+    def appendNewNodeIgnoringExisting(coords, osmXml):
+        rlon = int(float(coords[0]*10**7))
+        rlat = int(float(coords[1]*10**7))
+        #if (rlon, rlat) in nodes:
+        #    return nodes[(rlon, rlat)]
         node = etree.Element('node', visible = 'true', id = str(newOsmId('node')))
         node.set('lon', str(Decimal(coords[0])*Decimal(1)))
         node.set('lat', str(Decimal(coords[1])*Decimal(1)))
@@ -171,7 +278,16 @@ def convert(buildingsFile, osmOut):
 
     # Appends an address to a given node or way.
     def appendAddress(address, element):
+        # Need to check if these tags already exist on this element
         for k, v in convertAddress(address['properties']).iteritems():
+            # TODO: is this doing anything useful?
+            #for child in element:
+            #    if child.tag == 'tag':
+            #        #print k, v
+            #        if child.attrib.get('k') == k:
+            #            print "found key", k
+            #            if child.attrib.get('v') == v:
+            #                print "found matching value", v
             element.append(etree.Element('tag', k=k, v=v))
 
     # Appends a building to a given OSM xml document.
@@ -217,10 +333,13 @@ def convert(buildingsFile, osmOut):
                 way.append(etree.Element('tag', k='elevation', v=str(elevation)))
         if 'BLD_ID' in building['properties']:
             way.append(etree.Element('tag', k='lacounty:bld_id', v=str(building['properties']['BLD_ID'])))
-        if address: appendAddress(address, way)
+        if address:
+            appendAddress(address, way)
 
     # Export buildings & addresses. Only export address with building if there is exactly
     # one address per building. Export remaining addresses as individual nodes.
+    # The remaining addresses are added to a dictionary hashed by their coordinates.
+    # This way we catch any addresses that have the same coordinates.
     osmXml = etree.Element('osm', version='0.6', generator='alex@mapbox.com')
     for i in range(0, len(buildings)):
 
@@ -229,18 +348,61 @@ def convert(buildingsFile, osmOut):
             buildingAddresses.append(address)
         address = None
         if len(buildingAddresses) == 1:
+            # There's only one address in the building footprint
             address = buildingAddresses[0]
-        else:
-            allAddresses.extend(buildingAddresses)
+        elif len(buildingAddresses) > 1:
+            # If there are multiple addresses, first try to distill them.
+            # If we can distill them to one address, we can still add it to this building.
+            distilledAddresses = distillAddresses(buildingAddresses)
+            if len(distilledAddresses) == 1:
+                # We distilled down to one address. Add it to the building.
+                address = distilledAddresses[0]
+            else:
+                # We could not distilled down to one address. Instead export as nodes.
+                for address in distilledAddresses:
+                    # The key is the coordinates of this address. Track how many addresses share these coords.
+                    key = keyFromAddress(address)
+                    if key in allAddresses:
+                        allAddresses[key].append(address)
+                    else:
+                        allAddresses[key] = [address]
 
         appendBuilding(buildings[i], buildingShapes[i], address, osmXml)
 
 
     # Export any addresses that aren't the only address for a building.
     if (len(allAddresses) > 0):
-        for address in allAddresses:
-            node = appendNewNode(address['geometry']['coordinates'], osmXml)
-            appendAddress(address, node)
+
+        # Iterate over the list of distinct coordinates found in the address data
+        for coordskey in allAddresses:
+            # if a distinct coordinate has only one associated address,
+            # then export that address as a new node
+            if len(allAddresses[coordskey]) == 1:
+                address = allAddresses[coordskey][0]
+                coordinates = address['geometry']['coordinates']
+                node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
+                appendAddress(address, node)
+
+            # If there is more than one address at these coordinates, do something.
+            # ...but do what exactly?
+            else:
+                distilledAddresses = distillAddresses(allAddresses[coordskey])
+                if len(distilledAddresses) == 1:
+                    # We distilled down to one address. Append it.
+                    address = distilledAddresses[0]
+                    coordinates = address['geometry']['coordinates']
+                    node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
+                    appendAddress(address, node)
+                else:
+                    print "found duplicate coordinates that could not be distilled:", coordskey, "has", len(allAddresses[coordskey]), "addresses"
+                    print '\t'.join(["num", "street", "unit"])
+                    for address in distilledAddresses:
+                        # TODO: do something smart here. For now, drop these entirely.
+                        #print address
+                        print '\t'.join([str(address['properties']['Number']), str(address['properties']['StreetName']), str(address['properties']['UnitName'])])
+                        coordinates = address['geometry']['coordinates']
+                        node = appendNewNodeIgnoringExisting(coordinates, osmXml) # Force overlapping nodes so JOSM will catch them
+                        appendAddress(address, node)
 
     with open(osmOut, 'w') as outFile:
         outFile.writelines(tostring(osmXml, pretty_print=True, xml_declaration=True, encoding='UTF-8'))
