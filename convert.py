@@ -12,6 +12,8 @@ import json
 from rtree import index
 import ntpath
 
+debug = False
+
 # Adjust precision for buffer operations
 getcontext().prec = 16
 
@@ -184,14 +186,16 @@ def convert(buildingsFile, osmOut):
 
         # NOTE: sometimes an apartment building has a few address points that lack a UnitName...
         # ...so checking for the presence of UnitName in firstAddress wouldn't always work.
-        print "Testing to see if these are apartments...", '\t'.join([str(firstAddress['properties']['Number']), str(firstAddress['properties']['StreetName']), str(firstAddress['properties']['UnitName'])])
-
+        props = firstAddress['properties']
+        if debug: print "Testing to see if these are apartments...", '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
         # Compare subsequent addresses in the array to the first address.
         # Hence, range starts at 1.
         for i in range(1, len(addresses)):
             if not areSameAddressExceptUnit(firstAddress, addresses[i]):
-                #print "...but this address was different", addresses[i]
-                print "No, this address was different", '\t'.join([str(addresses[i]['properties']['Number']), str(addresses[i]['properties']['StreetName']), str(addresses[i]['properties']['UnitName'])])
+                props = addresses[i]['properties']
+                if debug: print "No, this address was different...........", '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
+                #print firstAddress
+                #print addresses[i]
                 break
             # else, keep going
 
@@ -199,22 +203,84 @@ def convert(buildingsFile, osmOut):
             # We checked them all, and they're all the same except UnitName.
             # In this case the apartment data is useless to OSM because the
             # apartment nodes are all on top of each other.
-            # So, discard the address information and return just one address.
+            # So, discard the unit information and return just one address.
             firstAddress['properties']['UnitName'] = None
-            print "Yes they were apartments! Collapsed", len(addresses), "into one"
+            if debug: print "Yes they were apartments! Collapsed", len(addresses), "into one"
             return [firstAddress]
 
-        # TODO: (2b) Check if the street number is all the same.
-        # For this, we need a list of alternative names (like HWY 1, etc)...
-        # ...and we need to know which authoritative name to keep.
-        # TODO continue here
+        # (2b) Check if the street number is all the same.
+        # For this, we use a list of alternative names (like HWY 1, etc)...
+        # ...and we need to know which canonical name to keep.
+        if debug: print "Testing to see if the street names are synonyms.."
+        canonicalStreetName = None
+        for i in range(1, len(addresses)):
+            props = addresses[i]['properties']
+            if not areSameAddressExceptStreet(firstAddress, addresses[i]):
+                if debug: print "No, this address was different...........", '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
+                #print firstAddress
+                #print addresses[i]
+                break
+            compoundStreetName = (str(props['PreType']),str(props['StreetName']),str(props['PostType']))
+            currentCanonicalStreetName = getCanonicalName(compoundStreetName)
+            if currentCanonicalStreetName:
+                if debug: print "found canonical name", currentCanonicalStreetName
+                if ((currentCanonicalStreetName == canonicalStreetName) or (canonicalStreetName == None)):
+                    canonicalStreetName = currentCanonicalStreetName
+                else:
+                    if debug: print "canonicalStreetNames didn't match:", canonicalStreetName, currentCanonicalStreetName
+                    break
+            else:
+                print "couldn't find canonicalStreetName for", compoundStreetName
+                break
+
+        else: # else for the `for` statement. Executes only if `break` never did.
+            # We checked them all, and they're all the same except StreetName.
+            # If we can determine that they are all the same synonym, we can
+            # overwrite the other streetname information and return just one address.
+            firstAddress['properties']['PreType'] = canonicalStreetName[0]
+            firstAddress['properties']['StreetName'] = canonicalStreetName[1]
+            firstAddress['properties']['PostType'] = canonicalStreetName[2]
+            if debug: print "Yes they were synonyms! Collapsed", len(addresses), "into one"
+            return [firstAddress]
+
+        # This is only excuted if neither of the two `else` statements executed 
+        # for the two `for` statements above. That means we were unable to collapse
+        # separate apartments into one, or collapse synonymous street names into one.
+        # So, instead of returning just one address, we fail and return all of them.
         return addresses
 
     def areSameAddressExceptUnit(a1, a2):
         for key in ['NumPrefix', 'Number', 'NumSuffix', 'PreMod', 'PreDir', 'PreType', 'StArticle', 'StreetName', 'PostType', 'PostDir', 'PostMod', 'ZipCode', 'LegalComm', 'PCITY1']:
             if a1['properties'][key] != a2['properties'][key]:
+                #print key, a1['properties'][key], "!=", a2['properties'][key]
                 return False
         return True
+
+    def areSameAddressExceptStreet(a1, a2):
+        for key in ['NumPrefix', 'Number', 'NumSuffix', 'PreMod', 'PreDir', 'StArticle', 'UnitName', 'PostDir', 'PostMod', 'ZipCode', 'LegalComm', 'PCITY1']:
+            if a1['properties'][key] != a2['properties'][key]:
+                #print key, a1['properties'][key], "!=", a2['properties'][key]
+                return False
+        return True
+
+    # Sometimes we have identical addresses that differ only by street name.
+    # Usually these are because the street name is also a highway. We want to 
+    # remove all the highway names and only use the street name for the address
+    canonicalNames = {
+        ("None", "LINCOLN", "BOULEVARD"): (None, "LINCOLN", "BOULEVARD"),
+        ("ROUTE", "1", "None"): (None, "LINCOLN", "BOULEVARD"),
+        ("HIGHWAY", "1", "None"): (None, "LINCOLN", "BOULEVARD"),
+        ("None", "SR-1", "None"): (None, "LINCOLN", "BOULEVARD"),
+        ("None", "PCH", "None"): (None, "LINCOLN", "BOULEVARD"),
+    }
+
+    def getCanonicalName(compoundStreetName):
+        result = None
+        try:
+            result = canonicalNames[compoundStreetName]
+        except KeyError:
+            return None
+        return result
 
     # Appends new node or returns existing if exists.
     nodes = {}
@@ -394,12 +460,14 @@ def convert(buildingsFile, osmOut):
                     node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
                     appendAddress(address, node)
                 else:
-                    print "found duplicate coordinates that could not be distilled:", coordskey, "has", len(allAddresses[coordskey]), "addresses"
-                    print '\t'.join(["num", "street", "unit"])
+                    if debug: print "found duplicate coordinates that could not be distilled:", coordskey, "has", len(allAddresses[coordskey]), "addresses"
+                    if debug: print '\t'.join(["num", "numsufx", "pretype", "street", "posttype", "unit"])
                     for address in distilledAddresses:
                         # TODO: do something smart here. For now, drop these entirely.
+                        # TODO: maybe jitter them, or leave stacked but with FIXME?
                         #print address
-                        print '\t'.join([str(address['properties']['Number']), str(address['properties']['StreetName']), str(address['properties']['UnitName'])])
+                        props = address['properties']
+                        if debug: print '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
                         coordinates = address['geometry']['coordinates']
                         node = appendNewNodeIgnoringExisting(coordinates, osmXml) # Force overlapping nodes so JOSM will catch them
                         appendAddress(address, node)
@@ -413,6 +481,9 @@ def prep(fil3):
     convert(fil3, 'osm/%s.osm' % matches[0])
 
 if __name__ == '__main__':
+    # for easier debugging
+    #for filename in argv[1:]:
+    #    prep(filename)
     pool = Pool()
     pool.map(prep, argv[1:])
     pool.close()
