@@ -20,7 +20,7 @@ How to import
 ### Check out a task on the tasking manager
 
  * tasks will be available on the openstreetmap.us tasking manager
- * priority: we are working on LA City first
+ * priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
  * why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
 ## Import workflow
@@ -47,6 +47,10 @@ How to import
  * See if the street is on [Mapillary](mapillary.com)
  * Go out and check it out yourself! Take a field trip!
  * **DO NOT USE GOOGLE MAPS OR GOOGLE STREET VIEW**
+
+### Identifying New Buildings with imported and existing data
+* Aerial Imagery used as a basemap should help to identify and draw newer buildings not found in the imported an existing data.
+* Newer building should be identified and flagged. (This process should not be done, pending approval and recomendations from the OSM Community.)
  
 
 
