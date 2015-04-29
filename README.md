@@ -1,6 +1,8 @@
 LA Buildings
 ===========
 
+[![Join the chat at https://gitter.im/osmlab/labuildings](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osmlab/labuildings?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Los Angeles County building and address import
 
 Generates an OSM file of buildings with addresses per census block groups,
