@@ -463,8 +463,9 @@ def convert(buildingsFile, osmOut):
                     if debug: print "found duplicate coordinates that could not be distilled:", coordskey, "has", len(allAddresses[coordskey]), "addresses"
                     if debug: print '\t'.join(["num", "numsufx", "pretype", "street", "posttype", "unit"])
                     for address in distilledAddresses:
-                        # TODO: do something smart here. For now, drop these entirely.
+                        # TODO: do something smart here. These are overlapping addresses that we couldn't distill.
                         # TODO: maybe jitter them, or leave stacked but with FIXME?
+                        # TODO: For now, we use appendNewNodeIgnoringExisting to pile the nodes on top of each other.
                         #print address
                         props = address['properties']
                         if debug: print '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
