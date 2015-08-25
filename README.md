@@ -113,155 +113,55 @@ See the `convert.py` script to see the implementation of these transformations.
 
 ### Address attributes
 
-* **AIN** - Parcel this address falls inside
-
-	* Ignore (although `merge.py` uses this to map stray addresses to buildings)
-
-* **NumPrefix** - Number prefix
-
-	* Note: These are extremely rare (only 33 of them), mainly showing up for addresses in Lakewood Center Mall, Lakewood CA. Handling these would require treating `addr:housenumber` as a string, not an integer. However, the OSM wiki says this is permitted.
-	* Prepend to `addr:housenumber` using `formatHousenumber()` function
-
-* **Number** - House Number
-
-	* Map to `addr:housenumber` using `formatHousenumber()` function
-
-* **NumSuffix** - House Number Suffix (1/2, 3/4 etc)
-
-	* Append to `addr:housenumber` using `formatHousenumber()` function
-
-* **PreMod** - Prefix Modifier
-
-	* Examples: **OLD** RANCH ROAD, **LOWER** ASUZA ROAD
-	* Change to titlecase
-	* Prepend to `addr:street`
-
-* **PreDir** - Prefix Direction (E, S, W, N)
-
-	* Examples: **SOUTH** RANCH ROAD
-	* Note: the data is already expanded into "NORTH", "SOUTH", etc. We do not condense into "N", "S".
-	* Change to titlecase
-	* Prepend to `addr:street`
-
-* **PreType** - Prefix Type (Ave, Avenida, etc)
-
-	* Examples: NORTH **VIA** SORRENTO, **RUE** DE LA PIERRE
-	* Change to titlecase
-	* Prepend to `addr:street`
-
-* **StArticle** - Street Article (de la, les, etc)
-
-	* Examples: RUE **DE LA** PIERRE
-	* Change to titlecase
-	* Prepend to `addr:street`
-
-* **StreetName** - Street Name
-
-	* Change to titlecase (but full lowercase on numeral suffixes "st", "nd", "rd", "th")
-	* Map to `addr:street`
-
-* **PostType** - Post Type (Ave, St, Dr, Blvd, etc)
-
-	* Change to titlecase
-	* Append to `addr:street`
-
-* **PostDir** - Post Direction (N, S, E, W)
-
-	* Examples: MARINA DRIVE **SOUTH**
-	* Note: the data is already expanded into "NORTH", "SOUTH", etc. We do not condense into "N", "S".
-	* Change to titlecase
-	* Append to `addr:street`
-
-* **PostMod** - Post Modifier (OLD, etc)
-
-	* Note: this is always null in the current data. Treat like PreMod for consistency.
-	* Change to titlecase
-	* Append to `addr:street`
-
-* **UnitType** - Unit Type (#, Apt, etc) - where these are known
-
-	* **Ignore?**
-
-* **UnitName** - Unit Name (A, 1, 100, etc)
-
-	* Map to `addr:unit`
-
-* **Zipcode** - Zipcode
-
-	* Map to `addr:postcode`
-
-* **Zip4** - Not currently filled out in source data
-
-	* Ignore
-
-* **LegalComm** - Legal City or primary postal city in Unincorporated Areas
-
-	* Fall back to this if `PCITY1` is null. 
-	* Potentially could map this to `is_in:city`, but given that OSM already has good city boundaries this seems unnecessary.
-
-* **Source** - source of the address point, one of: Assessor, LACity, Regional Planning, other
-
-	* Ignore: this generally corresponds to whichever city the address falls within
-
-* **SourceID** - ID of the Address in the source system
-
-    * Ignore
-
-* **MADrank** - Method Accuracy Description (MAD) provides a number between 1 and 100 detailing the accuracy of the location.
-
-	* Ignore
-
-* **PCITY1** - 1st postal city (from the USPS)
-
-	* Note: this is null for 1469 records. When null, fall back to `LegalComm`.
-	* Change to titlecase
-	* Map to `addr:city`
-
-* **PCITY2** - 2nd postal city (from the USPS)
-
-	* Ignore: mostly null or same as LegalComm. Always null when `PCITY1` is null.
-
-* **PCITY3** - 3rd postal city (from the USPS)
-
-	* Ignore: mostly null. Always null when `PCITY1` is null.
+| Attribute | OSM Equivalent | Dataset used| Description | Add/Ignore? | Notes |
+|------------|------------------|--------------------------|---------------------------------------------------------------------------------------------------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| AIN |  | LA County Address Points | Parcel this address falls inside | Ignore |  |
+| Numprefix | `addr:housenumber` | LA County Address Points | Number prefix | Add | These are extremely rare (only 33 of them), mainly showing up for addresses in Lakewood Center Mall, Lakewood CA. Handling these would require treating `addr:housenumber` as a string, not an integer. However, the OSM wiki says this is permitted. |
+| Number | `addr:housenumber` | LA County Address Points | House Number | Add |  |
+| NumSuffix | `addr:housenumber` | LA County Address Points | House Number Suffix (1/2, 3/4 etc) | Add |  |
+| PreMod | `addr:street` | LA County Address Points | Prefix Modifier | Add | Examples: OLD RANCH ROAD, LOWER ASUZA ROAD |
+| PreDir | `addr:street` | LA County Address Points | Prefix Direction (E, S, W, N) | Add | Examples: SOUTH RANCH ROAD |
+| PreType | `addr:street` | LA County Address Points | Prefix Type (Ave, Avenida, etc) | Add | Examples: NORTH VIA SORRENTO, RUE DE LA PIERRE |
+| STArticle | `addr:street` | LA County Address Points | Street Article (de la, les, etc) | Add | Examples: RUE DE LA PIERRE. Change to titlecase |
+| StreetName | `addr:street` | LA County Address Points | Street Name | Add | Change to titlecase (but full lowercase on numeral suffixes "st", "nd", "rd", "th") |
+| PostType | `addr:street` | LA County Address Points | Post Type (Ave, St, Dr, Blvd, etc) | Add | Change to titlecase |
+| PostDir | `addr:street` | LA County Address Points | Post Direction (N, S, E, W) | Add | Examples: MARINA DRIVE SOUTH. Note: the data is already expanded into "NORTH", "SOUTH", etc. We do not condense into "N", "S". Change to Titlecase |
+| PostMod | `addr:street` | LA County Address Points | Post Modifier (OLD, etc) | Add | Note: this is always null in the current data. Treat like PreMod for consistency. Change to titlecase |
+| UnitType |  | LA County Address Points | Unit Type (#, Apt, etc) - where these are known |  | Ignore??? |
+| UnitName | `addr:unit` | LA County Address Points | Unit Name (A, 1, 100, etc) | Add |  |
+| Zipcode | `addr:postcode` | LA County Address Points | Zipcode | Add |  |
+| Zip4 |  | LA County Address Points | Not currently filled out | Ignore |  |
+| LegalComm | `is_in:city` | LA County Address Points | Legal City or primary postal city in Unincorporated Areas | Add | Fall back to this if `PCITY1` is null. Potentially could map this to `is_in:city`, but given that OSM already has good city boundaries this seems unnecessary. |
+| PostComm1 | `addr:city` | LA County Address Points | Primary Postal Community | Ignore |  |
+| PostComm2 |  | LA County Address Points | Secondary Postal Community | Ignore |  |
+| PostComm3 |  | LA County Address Points | Third Postal Community | Ignore |  |
+| Source |  | LA County Address Points | source of the address point, one of: Assessor, LACity, Regional Planning, other | Ignore | this generally corresponds to whichever city the address falls within |
+| SourceID |  | LA County Address Points | ID of the Address in the source system | Ignore |  |
+| MADrank |  | LA County Address Points | Method Accuracy Description (MAD) provides a number between 1 and 100 detailing the accuracy of the location. | Ignore |  |
+| PCITY1 | `addr:city` |  | 1st postal city (from the USPS) | add | this is null for 1469 records. When null, fall back to `LegalComm`. Change to titlecase |
+| PCITY2 |  |  | 2nd postal city (from the USPS) | ignore | mostly null or same as LegalComm. Always null when `PCITY1` is null. |
+| PCITY3 |  |  | 3rd postal city (from the USPS) | ignore | mostly null. Always null when `PCITY1` is null. |
 
 ### Building attributes
 
-* **CODE** - Building type (either Building or Courtyard).
-
-	* Ignore
-	* Note: only CODE='Building' is used for this import. We ignore CODE='Courtyard'. This filtering step happens in the `Makefile`
-
-* **BLD_ID** - unique building ID
-
-	* **Ignore** ???
-	* Or, map to a special OSM tag like `lacounty:bld_id`
-
-* **HEIGHT** - the height of the highest major feature of the building (not including roof objects like antennas and chimneys)
-
-	* Convert from inches to meters
-	* Round to one decimal place
-	* Map to `height` tag, only if height > 0
-
-* **ELEV** - the elevation of the building
-
-	* Convert from inches to meters
-	* Round to one decimal place
-	* Map to `elevation` tag, only if elevation > 0
-	
-* **AREA** - the Roof area
-
-	* Ignore: mostly null
-
-* **SOURCE** - the data source (either LARIAC2, Pasadena, Palmdale, or Glendale)
-
-	* Ignore
-	
-* **DATE** - Date Captured (2006, 2008, or blank)
-
-	* Ignore
-	
-* **AIN** - the Parcel ID number.
-
-	* Ignore (although `merge.py` uses this to map stray addresses to buildings)
-
+| Attribute | OSM Equivalent | Dataset used| Description | Add/Ignore? | Notes |
+|--------------------|-----------------|-------------------|-----------------------------------------------------------------------------------------------------------------|--------|-----------------------------------------------------------------------------------------------------------------------------|
+| CODE |  |  |  | Ignore | Note: only CODE=`Building` is used for this import. We ignore CODE='Courtyard'. This filtering step happens in the Makefile |
+| BLD_ID | `lacounty:bld_id` | Building Outlines | Unique Building ID | Add | Special OSM Tag |
+| HEIGHT | `height` | Building Outlines | The height of the highest major feature of the building (not including roof objects like antennas and chimneys) | Add | map to tag, only if height >0 |
+| ELEV | `elevation` | Building Outlines | The elevation of the building | Add | map to elevation, only if elevation > 0 |
+| AREA |  | Building Outlines | Roof Area | Ignore | Mostly null |
+| SOURCE |  | Building Outlines | The data source (either LARIAC2, Pasadena, Palmdale, or Glendale) | Ignore |  |
+| AIN |  | Building Outlines | The parcel ID number | Ignore | Used to map stray addresses to buildings and link datasets |
+| Shape_Leng |  | Building Outlines |  | Ignore |  |
+| Shape_Area | `area` | Building Outlines |  | Ignore |  |
+| GeneralUseType | building | Assessor 2015 | General use type of the property | Add |  |
+| SpecificUseType | building:use | Assessor 2015 | More specific use type of the property  | Add |  |
+| YearBuilt | `start_date` | Assessor 2015 | Year property was originally built | Add |  |
+| EffectiveYearBuilt |  | Assessor 2015 | Effective year built taking into account subsequent construction, remodeling, building maintenance, etc. |  | what is this? |
+| SpecificUseDetail1 | amenity | Assessor 2015 | More specific use type of the property  | Add |  |
+| SpecificUseDetail2 |  | Assessor 2015 | Additional property usage detail |  |  |
+| SQFTmain |  | Assessor 2015 | Total square footage of the main structure(s), | Ignore |  |
+| Bedrooms |  | Assessor 2015 | Total number of bedrooms. |  |  |
+| Bathrooms |  | Assessor 2015 | Total number of bathrooms. |  |  |
+| Units | `building:units` | Assessor 2015 | Total number of living units. | Add |  |
