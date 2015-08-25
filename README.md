@@ -12,20 +12,18 @@ This README is about data conversion. See also the [page on the OSM wiki](https:
 
 **HOW YOU CAN GET INVOLVED:** You may want to browse the [issues](https://github.com/osmlab/labuildings/issues) and/or "watch" this repo (see button at the top of this page) to follow along with the discussion. Also join the chat room on [Gitter](https://gitter.im/osmlab/labuildings)!
 
+| Phase        | Task           | Contact  |
+| ------------- |:-------------:| -----:|
+| Attributes to be Imported      | Select which fields will be imported and prepend (associate) with an OSM tag  [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1A3whba04_-3K0z77nGHYavIwYpWjnyAaInwWie3HSVA/edit#gid=1971401153), list is displayed below as well|  Request access to spreadsheet from [@cityhubla](https://github.com/cityhubla) or discuss in Issue [#3] (https://github.com/osmlab/labuildings/issues/3) |
+| Python Scripting |  Process datasets to OSM files |  Questions?  Discuss in Issue [#9](https://github.com/osmlab/labuildings/issues/9) |
+| Import Guidelines     | Prepare guidelines for import      |   Discuss in Issue [#10](https://github.com/osmlab/labuildings/issues/10) |
+
+
 ![LA buildings screenshot](la_buildings_screenshot.png?raw=true "LA buildings screenshot from QGIS")
 
 Sample .osm files (**not ready for import yet**) are in this [zip file](https://github.com/osmlab/labuildings/blob/master/venice_osm.zip?raw=true).
 
 Browse a slippy map of the data [here](http://stamen.cartodb.com/u/stamen-org/viz/ff53ba6e-9788-11e4-945a-f23c91504230/public_map)
-
-## How can I help?
-
-| Phase        | Task           | Contact  |
-| ------------- |:-------------:| -----:|
-| Attributes to be Imported      | Select which fields will be imported and prepend (associate) with an OSM tag  [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1A3whba04_-3K0z77nGHYavIwYpWjnyAaInwWie3HSVA/edit#gid=1971401153) |  Request access to spreadsheet from [@cityhubla](https://github.com/cityhubla) or discuss in Issue [#3] (https://github.com/osmlab/labuildings/issues/3) |
-| Python Scripting |  Process datasets to OSM files |  Questions?  Discuss in Issue [#9](https://github.com/osmlab/labuildings/issues/9) |
-| Import Guidelines     | Prepare guidelines for import      |   Discuss in Issue [#10](https://github.com/osmlab/labuildings/issues/10) |
-
 
 ## Prerequisites
 
