@@ -6,7 +6,7 @@ clean:
 	rm -f BlockGroupPly.zip
 
 BldgPly.zip:
-	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/11/lariac_buildings_2008.zip" -o BldgPly.zip
+	curl -L "http://latimes-graphics-media.s3.amazonaws.com/jon-temp/lariac_buildings_2008.zip" -o BldgPly.zip
 
 AddressPt.zip:
 	curl -L "http://egis3.lacounty.gov/dataportal/wp-content/uploads/2012/06/lacounty_address_points.zip" -o AddressPt.zip

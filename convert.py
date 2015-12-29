@@ -388,7 +388,22 @@ def convert(buildingsFile, osmOut):
             relation.append(etree.Element('tag', k='type', v='multipolygon'))
             osmXml.append(relation)
             way = relation
-        way.append(etree.Element('tag', k='building', v='yes'))
+        if 'GeneralUse' in building['properties']:
+            way.append(etree.Element('tag', k='building', v=building['properties']['GeneralUse']))
+        else:
+            way.append(etree.Element('tag', k='building', v='yes'))
+        if 'SpecificUs' in building['properties']:
+            way.append(etree.Element('tag', k='building:use', v=building['properties']['GeneralUse']))
+        if 'YearBuilt' in building['properties']:
+            yearBuilt = int(round(building['properties']['YearBuilt'], 0))
+            if yearBuilt > 0:
+                way.append(etree.Element('tag', k='start_date', v=yearBuilt))
+        if 'Specific_1' in building['properties']:
+                way.append(etree.Element('tag', k='amenity', v=building['properties']['Specific_1']))
+        if 'Units' in building['properties']:
+            units = int(round(building['properties']['Units'], 0))
+            if units > 0:
+                way.append(etree.Element('tag', k='building:units', v=units))
         if 'HEIGHT' in building['properties']:
             height = round(((building['properties']['HEIGHT'] * 12) * 0.0254), 1)
             if height > 0:
