@@ -37,8 +37,8 @@ BlockGroupPly/BlockGroupPly.shp: BlockGroupPly
 
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
-# Specify CODE=Building to ignore CODE=Courtyard
-	ogr2ogr -where "CODE='Building'" -simplify 0.2 -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
+# Specify CODE=Building to ignore CODE=Courtyard, suppressing Pasadena #20
+        ogr2ogr -where "SOURCE <> 'Pasadena' AND CODE='Building'" -simplify 0.2 -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
 
 AddressPt/addresses.shp: AddressPt
 	rm -f AddressPt/addresses.*
