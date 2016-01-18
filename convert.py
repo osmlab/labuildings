@@ -12,7 +12,7 @@ import json
 from rtree import index
 import ntpath
 
-debug = False
+debug = True
 
 # Adjust precision for buffer operations
 getcontext().prec = 16
@@ -39,7 +39,7 @@ def convert(buildingsFile, osmOut):
 
         # These are the addresses that don't overlap any buildings
         elif feature['geometry']['type'] == 'Point':
-            # The key is the coordinates of this address. Track how many addresses share these coords.
+        # The key is the coordinates of this address. Track how many addresses share these coords.
             key = keyFromAddress(feature)
             if key in allAddresses:
                 allAddresses[key].append(feature)
@@ -388,22 +388,22 @@ def convert(buildingsFile, osmOut):
             relation.append(etree.Element('tag', k='type', v='multipolygon'))
             osmXml.append(relation)
             way = relation
-        if 'GeneralUse' in building['properties']:
-            way.append(etree.Element('tag', k='building', v=building['properties']['GeneralUse']))
+        if 'GeneralUse' in building['properties'] and building['properties']['GeneralUse'] is not None:
+            way.append(etree.Element('tag', k='building', v=building['properties']['GeneralUse'].lower()))
         else:
             way.append(etree.Element('tag', k='building', v='yes'))
-        if 'SpecificUs' in building['properties']:
-            way.append(etree.Element('tag', k='building:use', v=building['properties']['GeneralUse']))
-        if 'YearBuilt' in building['properties']:
-            yearBuilt = int(round(building['properties']['YearBuilt'], 0))
-            if yearBuilt > 0:
-                way.append(etree.Element('tag', k='start_date', v=yearBuilt))
-        if 'Specific_1' in building['properties']:
-                way.append(etree.Element('tag', k='amenity', v=building['properties']['Specific_1']))
-        if 'Units' in building['properties']:
-            units = int(round(building['properties']['Units'], 0))
+        if 'SpecificUs' in building['properties'] and building['properties']['SpecificUs'] is not None:
+            way.append(etree.Element('tag', k='building:use', v=building['properties']['SpecificUs'].lower()))
+        if 'YearBuilt' in building['properties'] and building['properties']['YearBuilt'] is not None:
+            YearBuilt = int(building['properties']['YearBuilt'])
+            if YearBuilt > 0:
+                    way.append(etree.Element('tag', k='start_date', v=str(YearBuilt)))
+        if 'Specific_1' in building['properties'] and building['properties']['Specific_1'] is not None:
+                way.append(etree.Element('tag', k='amenity', v=building['properties']['Specific_1'].lower()))
+        if 'Units' in building['properties'] and building['properties']['Units'] is not None:
+            units = int(round(float(building['properties']['Units']), 0))
             if units > 0:
-                way.append(etree.Element('tag', k='building:units', v=units))
+                way.append(etree.Element('tag', k='building:units', v=str(units)))
         if 'HEIGHT' in building['properties']:
             height = round(((building['properties']['HEIGHT'] * 12) * 0.0254), 1)
             if height > 0:
@@ -441,13 +441,12 @@ def convert(buildingsFile, osmOut):
             else:
                 # We could not distilled down to one address. Instead export as nodes.
                 for address in distilledAddresses:
-                    # The key is the coordinates of this address. Track how many addresses share these coords.
+                # The key is the coordinates of this address. Track how many addresses share these coords.
                     key = keyFromAddress(address)
                     if key in allAddresses:
                         allAddresses[key].append(address)
                     else:
                         allAddresses[key] = [address]
-
         appendBuilding(buildings[i], buildingShapes[i], address, osmXml)
 
 
@@ -498,9 +497,10 @@ def prep(fil3):
 
 if __name__ == '__main__':
     # for easier debugging
-    #for filename in argv[1:]:
-    #    prep(filename)
+    # for filename in argv[1:]:
+    #     prep(filename)
     pool = Pool()
-    pool.map(prep, argv[1:])
+    iterator = ( f for f in argv[1:])
+    pool.map(prep, iterator)
     pool.close()
     pool.join()
