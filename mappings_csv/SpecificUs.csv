@@ -23,7 +23,7 @@ Food Processing Plant,building,factory
 Four Units (Any Combination),building,apartments
 Fruits and Nuts,building,farm
 Golf Course,building,recreational
-Government Owned Property,building,yes
+Government Owned Property,,
 Heavy Manufacturing,building,industrial
 Homes for Aged and Others,building,nursing_home
 Hospital,building,hospital
