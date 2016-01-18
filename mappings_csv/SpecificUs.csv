@@ -1,0 +1,57 @@
+SpecificUse,osm_key1,osm_val1
+Athletic and Amusement Facility,building,recreational
+"Bank, Savings and Loan",building,bank
+Children's Day Care Center,building,kindergarten
+Church,building,church
+"College, University (Private)",building,college
+Commercial,building,commercial
+Dairy,building,farm
+Department Store,building,department_store
+Desert,building,farm
+"Double, Duplex, or Two Units",building,residential
+Feed Lot,building,farm
+Field Crops,building,farm
+Five or More Units or Apartments (Any Combination),building,apartment
+Food Processing Plant,building,factory
+Four Units (Any Combination),building,residential
+Fruits and Nuts,building,farm
+Golf Course,building,recreational
+Government Owned Property,building,civic
+Heavy Manufacturing,building,industrial
+Homes for Aged and Others,building,nursing_home
+Hospital,building,hospital
+Hotel and Motel,building,hotel
+Industrial,building,industrial
+Light Manufacturing,building,industrial
+Lumber Yard,building,industrial
+Manufactured Home,building,residential
+Manufactured Home Park,building,residential
+Mineral Processing,building,industrial
+"Non-Auto Service and Repair Shop, Paint Shop, or Laundry",building,shop
+Office Building,building,office
+Open Storage,building,warehouse
+Parking Lot (Commercial Use Property),building,commercial
+Parking Lot (Industrial Use Property),building,industrial
+Pasture,building,farm
+Petroleum and Gas,building,industrial
+"Pipeline, Canal",building,industrial
+"Poultry, etc.",building,farm
+Professional Building,building,office
+Race Track,building,recreational
+"Restaurant, Cocktail Lounge",building,restaurant
+School (Private),building,school
+"Shopping Center (Neighborhood, Community)",building,retail
+Shopping Center (Regional),building,retail
+Single Family Residence,building,house
+Skating Rink,building,recreation
+Store,building,retail
+Store Combination,building,retail
+Supermarket,building,retail
+Theater,building,cinema
+Three Units (Any Combination),building,residential
+Truck Crops,building,farm
+Vineyard,building,farm
+"Warehousing, Distribution, Storage",building,warehouse
+Waste,building,farm
+Water Recreation,building,farm
+Wholesale and Manufacturing Outlet,building,retail
