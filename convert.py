@@ -11,6 +11,7 @@ from multiprocessing import Pool
 import json
 from rtree import index
 import ntpath
+import osm_tags
 
 debug = False
 
@@ -32,6 +33,8 @@ def convert(buildingsFile, osmOut):
 
     for feature in features:
         if feature['geometry']['type'] == 'Polygon' or feature['geometry']['type'] == 'MultiPolygon':
+            extra_tags = osm_tags.get_osm_tags(feature)
+            feature['properties']['osm'] = extra_tags
             buildings.append(feature)
             shape = asShape(feature['geometry'])
             buildingShapes.append(shape)
@@ -388,22 +391,25 @@ def convert(buildingsFile, osmOut):
             relation.append(etree.Element('tag', k='type', v='multipolygon'))
             osmXml.append(relation)
             way = relation
-        if 'GeneralUse' in building['properties']:
-            way.append(etree.Element('tag', k='building', v=building['properties']['GeneralUse']))
-        else:
-            way.append(etree.Element('tag', k='building', v='yes'))
-        if 'SpecificUs' in building['properties']:
-            way.append(etree.Element('tag', k='building:use', v=building['properties']['GeneralUse']))
-        if 'YearBuilt' in building['properties']:
-            yearBuilt = int(round(building['properties']['YearBuilt'], 0))
-            if yearBuilt > 0:
-                way.append(etree.Element('tag', k='start_date', v=yearBuilt))
-        if 'Specific_1' in building['properties']:
-                way.append(etree.Element('tag', k='amenity', v=building['properties']['Specific_1']))
-        if 'Units' in building['properties']:
-            units = int(round(building['properties']['Units'], 0))
+        for tag in building['properties']['osm']:
+            value = building['properties']['osm'][tag]
+            way.append(etree.Element('tag', k=tag, v=value))
+        # if 'GeneralUse' in building['properties']:
+        #     way.append(etree.Element('tag', k='building', v=building['properties']['GeneralUse']))
+        # else:
+        #     way.append(etree.Element('tag', k='building', v='yes'))
+        # if 'SpecificUs' in building['properties']:
+        #     way.append(etree.Element('tag', k='building:use', v=building['properties']['GeneralUse']))
+        if 'YearBuilt' in building['properties'] and building['properties']['YearBuilt'] is not None:
+            YearBuilt = int(building['properties']['YearBuilt'])
+            if YearBuilt > 0:
+                    way.append(etree.Element('tag', k='start_date', v=str(YearBuilt)))
+        # if 'Specific_1' in building['properties']:
+        #         way.append(etree.Element('tag', k='amenity', v=building['properties']['Specific_1']))
+        if 'Units' in building['properties'] and building['properties']['Units'] is not None:
+            units = int(round(float(building['properties']['Units']), 0))
             if units > 0:
-                way.append(etree.Element('tag', k='building:units', v=units))
+                way.append(etree.Element('tag', k='building:units', v=str(units)))
         if 'HEIGHT' in building['properties']:
             height = round(((building['properties']['HEIGHT'] * 12) * 0.0254), 1)
             if height > 0:
@@ -498,9 +504,9 @@ def prep(fil3):
 
 if __name__ == '__main__':
     # for easier debugging
-    #for filename in argv[1:]:
-    #    prep(filename)
-    pool = Pool()
-    pool.map(prep, argv[1:])
-    pool.close()
-    pool.join()
+    for filename in argv[1:]:
+        prep(filename)
+    # pool = Pool()
+    # pool.map(prep, argv[1:])
+    # pool.close()
+    # pool.join()
