@@ -26,12 +26,21 @@ How to import
 ## Import workflow
  * Choose which area you want to work on. (Browse the tasking manager and visualization of existing building and address data)
  * Load the .osm file from the tasking manager
- * Review the .osm file for inconsistencies and FIXME tags
+ * Review the .osm file for inconsistencies and FIXME tags.
+ * Run JOSM Validator, fix the data.
+
+ [show gif of validator]
+
  * Download the current OSM data for the bounding box of the .osm file
  * Compare the two layers for conflicts
  * If there are any problems you don't know how to deal with, do not proceed. Instead flag the .osm file for a more advanced user to look at. (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
  * Manually merge the layers together: preserve the work of previous mappers wherever possible. Copy address information and building height to existing building shapes if they are of higher quality.
+ * Use **Replace geometry** to merge.
  
+ [show gif of merging]
+
+*  Run JOSM Validator again, fix the data.
+
 ### Finally, upload it
 
  * Add the tag #labuildings to your changesets
