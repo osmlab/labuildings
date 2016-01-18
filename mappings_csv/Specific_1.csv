@@ -27,7 +27,7 @@ Fast Food - Auto Oriented,building:use,fast_food
 Fast Food - Walk Up,building:use,fast_food
 Fee Owned Boat Slip,,
 Full Service,,
-Government Services,,
+Government Services,building,civic
 "Gymnasium, Health Spa",,
 High Rise 5 Stories or More,,
 "High Value Residence, X Cost Classification",,
@@ -37,11 +37,11 @@ Hotel - 50 Rooms and Over,,
 Hotel - Under 50 Rooms,,
 Ice,,
 Legitimate (Stage) Theater,,
-Loft-type Buildings,,
+Loft-type Buildings,office,yes
 Lots - Commercial Parking,,
 Lots - Patron or Employee,,
 Meat,,
-Medical Dental Building,,
+Medical Dental Building,office,yes
 Microwave Relay Tower,,
 Miniature,,
 Misc. Privately Owned Properties That Do Not Fall Into Any Other Classification,,
@@ -58,14 +58,14 @@ Movie - Indoor,,
 Multiple Residence,,
 New Car Sales and Service,,
 Non Profit,,
-Office and Residential,,
+Office and Residential,office,yes
 Other,,
 Own-your-own Lot,,
 Parking Structures - Commercial Parking,,
 Parking Structures - Patron or Employee,,
 "Petroleum Refinery, Chemical Plant",,
 Private Rural Pumping Plant,,
-Public School,,
+Public School,building,school
 "Public Storage (Bekins, Lyons)",,
 Public Storage - Mini Warehouse,building:use,warehouse
 Recreation,,
@@ -77,7 +77,7 @@ Roller,,
 Self Service,,
 Single Residence,,
 "Small Food Store - Less than 6,000 SF",,
-Store and Office Combination,,
+Store and Office Combination,office,yes
 Store and Residential Combination,,
 Studio,,
 "Supermarket - 12,000 SF or More",,
