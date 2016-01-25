@@ -13,7 +13,7 @@ from rtree import index
 import ntpath
 import osm_tags
 
-debug = False
+debug = True
 
 # Adjust precision for buffer operations
 getcontext().prec = 16
@@ -347,7 +347,7 @@ def convert(buildingsFile, osmOut):
 
     # Appends an address to a given node or way.
     def appendAddress(address, element):
-        # Need to check if these tags already exist on this element
+    #    # Need to check if these tags already exist on this element
         for k, v in convertAddress(address['properties']).iteritems():
             # TODO: is this doing anything useful?
             #for child in element:
@@ -357,7 +357,7 @@ def convert(buildingsFile, osmOut):
             #            print "found key", k
             #            if child.attrib.get('v') == v:
             #                print "found matching value", v
-            element.append(etree.Element('tag', k=k, v=v))
+           element.append(etree.Element('tag', k=k, v=v))
 
     # Appends a building to a given OSM xml document.
     def appendBuilding(building, shape, address, osmXml):
@@ -420,8 +420,8 @@ def convert(buildingsFile, osmOut):
                 way.append(etree.Element('tag', k='elevation', v=str(elevation)))
         if 'BLD_ID' in building['properties']:
             way.append(etree.Element('tag', k='lacounty:bld_id', v=str(building['properties']['BLD_ID'])))
-        if address:
-            appendAddress(address, way)
+#        if address:
+#            appendAddress(address, way)
 
     # Export buildings & addresses. Only export address with building if there is exactly
     # one address per building. Export remaining addresses as individual nodes.
@@ -467,8 +467,8 @@ def convert(buildingsFile, osmOut):
             if len(allAddresses[coordskey]) == 1:
                 address = allAddresses[coordskey][0]
                 coordinates = address['geometry']['coordinates']
-                node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
-                appendAddress(address, node)
+#                node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
+#                appendAddress(address, node)
 
             # If there is more than one address at these coordinates, do something.
             # ...but do what exactly?
@@ -478,8 +478,8 @@ def convert(buildingsFile, osmOut):
                     # We distilled down to one address. Append it.
                     address = distilledAddresses[0]
                     coordinates = address['geometry']['coordinates']
-                    node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
-                    appendAddress(address, node)
+#                    node = appendNewNode(coordinates, osmXml) # returns old node if one exists at these coords
+#                    appendAddress(address, node)
                 else:
                     if debug: print "found duplicate coordinates that could not be distilled:", coordskey, "has", len(allAddresses[coordskey]), "addresses"
                     if debug: print '\t'.join(["num", "numsufx", "pretype", "street", "posttype", "unit"])
@@ -491,8 +491,8 @@ def convert(buildingsFile, osmOut):
                         props = address['properties']
                         if debug: print '\t'.join([str(props['Number']), str(props['NumSuffix']), str(props['PreType']), str(props['StreetName']), str(props['PostType']), str(props['UnitName'])])
                         coordinates = address['geometry']['coordinates']
-                        node = appendNewNodeIgnoringExisting(coordinates, osmXml) # Force overlapping nodes so JOSM will catch them
-                        appendAddress(address, node)
+#                        node = appendNewNodeIgnoringExisting(coordinates, osmXml) # Force overlapping nodes so JOSM will catch them
+#                        appendAddress(address, node)
 
     with open(osmOut, 'w') as outFile:
         outFile.writelines(tostring(osmXml, pretty_print=True, xml_declaration=True, encoding='UTF-8'))
