@@ -11,11 +11,13 @@ How to import
 
 ### Creating an import account
 
- * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. Post your import account username in this [ticket](ticket number).
+ * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. 
+ Usually, it's your existing OSM username followed by `_imports` (e.g. `maning_imports)`.
+ Post your import account username in this [ticket](ticket number).
 
 ### Getting familiar with JOSM
 
-To contribute to this project you need to use JOSM. OSM's desktop editor. Here are some resources to get you started:
+To contribute to this project you need to use JOSM.  Here are some resources to get you started:
  * LearnOSM - http://learnosm.org/en/josm/
  * Mapbox Mapping wiki - https://github.com/mapbox/mapping/wiki/Getting-started
 
@@ -51,7 +53,7 @@ To contribute to this project you need to use JOSM. OSM's desktop editor. Here a
 
 ### Finally, upload it
 
- * Add the tag #labuildings to your changesets.
+ * Add the tag `#labuildings` to your changesets.
  
 ![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
 
