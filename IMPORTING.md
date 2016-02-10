@@ -11,39 +11,49 @@ How to import
 
 ### Creating an import account
 
- * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. 
+ * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. Post your import account username in this [ticket](ticket number).
 
 ### Getting familiar with JOSM
 
- * learnosm tutorials?
+To contribute to this project you need to use JOSM. OSM's desktop editor. Here are some resources to get you started:
+ * LearnOSM - http://learnosm.org/en/josm/
+ * Mapbox Mapping wiki - https://github.com/mapbox/mapping/wiki/Getting-started
 
 ### Check out a task on the tasking manager
 
- * tasks will be available on the openstreetmap.us tasking manager
+ * Tasks will be available on this **[Tasking Manager](link soon)**.
  * priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
  * why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
 ## Import workflow
- * Choose which area you want to work on. (Browse the tasking manager and visualization of existing building and address data)
- * Load the .osm file from the tasking manager
- * Review the .osm file for inconsistencies and FIXME tags.
- * Run JOSM Validator, fix the data.
+ * Choose which area you want to work on. (Browse the tasking manager and visualization of existing building and address data).
+ * Load the `.osm` file from the tasking manager.
+ 
+ ![getdata](https://cloud.githubusercontent.com/assets/353700/12942521/ddcbf232-d001-11e5-96c4-5223bd633647.gif)
 
- [show gif of validator]
+ * Review the `.osm` file for inconsistencies and FIXME tags.
+ * Run JOSM **Validator**, fix the data.
 
- * Download the current OSM data for the bounding box of the .osm file
- * Compare the two layers for conflicts
- * If there are any problems you don't know how to deal with, do not proceed. Instead flag the .osm file for a more advanced user to look at. (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
+![validator](https://cloud.githubusercontent.com/assets/353700/12942520/ddc572f4-d001-11e5-8cf6-399511cd47fa.gif) 
+
+ * Download the current OSM data for the bounding box of the `.osm` file.
+ 
+ ![getosmdata](https://cloud.githubusercontent.com/assets/353700/12942519/ddc04c2a-d001-11e5-978a-b441c2607fcd.gif)
+ 
+ * Compare the two layers for conflicts.
+ * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
  * Manually merge the layers together: preserve the work of previous mappers wherever possible. Copy address information and building height to existing building shapes if they are of higher quality.
  * Use **Replace geometry** to merge.
  
- [show gif of merging]
+![replace](https://cloud.githubusercontent.com/assets/353700/12942518/ddba87a4-d001-11e5-9441-2561f67b45bc.gif) 
 
 *  Run JOSM Validator again, fix the data.
 
 ### Finally, upload it
 
- * Add the tag #labuildings to your changesets
+ * Add the tag #labuildings to your changesets.
+ 
+![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
 
 ## What to watch out for
 
@@ -66,10 +76,8 @@ How to import
 
 ### Identifying New Buildings with imported and existing data
 * Aerial Imagery used as a basemap should help to identify and draw newer buildings not found in the imported an existing data.
-* Newer building should be identified and flagged. (This process should not be done, pending approval and recomendations from the OSM Community.)
+* Newer building should be identified and flagged. (This process should not be done, pending approval and recommendations from the OSM Community.)
  
-
-
 ## Communicate communicate communicate!
 
 ### How to ask for help
