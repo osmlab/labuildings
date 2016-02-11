@@ -13,11 +13,11 @@ How to import
 
  * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. 
  Usually, it's your existing OSM username followed by `_imports` (e.g. `maning_imports)`.
- Post your import account username in this [ticket](ticket number).
+ Post your import account username in this [ticket](http://github.com/osmlab/labuildings/issues/future_ticket_number).
 
 ### Getting familiar with JOSM
 
-To contribute to this project you need to use JOSM.  Here are some resources to get you started:
+To contribute to this project, you need to use JOSM.  Here are some resources to get you started:
  * LearnOSM - http://learnosm.org/en/josm/
  * Mapbox Mapping wiki - https://github.com/mapbox/mapping/wiki/Getting-started
 
@@ -42,7 +42,7 @@ To contribute to this project you need to use JOSM.  Here are some resources to 
  
  ![getosmdata](https://cloud.githubusercontent.com/assets/353700/12942519/ddc04c2a-d001-11e5-978a-b441c2607fcd.gif)
  
- * Compare the two layers for conflicts.
+ * Compare both data for conflicts.
  * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
  * Manually merge the layers together: preserve the work of previous mappers wherever possible. Copy address information and building height to existing building shapes if they are of higher quality.
  * Use **Replace geometry** to merge.
@@ -84,9 +84,9 @@ To contribute to this project you need to use JOSM.  Here are some resources to 
 
 ### How to ask for help
 
- * Create [issues](http://github.com/osmlab/labuildings/issues) on this github repo
- * Ask questions on the [gitter channel](http://gitter.im/osmlab/labuildings)
- * contact [@almccon](http://twitter.com/almccon), [@cityhubla](http://twitter.com/cityhubla), others
+ * Create [issues](http://github.com/osmlab/labuildings/issues) on this github repo.
+ * Ask questions on the [gitter channel](http://gitter.im/osmlab/labuildings).
+ * Contact [@almccon](http://twitter.com/almccon), [@cityhubla](http://twitter.com/cityhubla),  [@jschleuss](http://twitter.com/jschleuss),  [@maningsambale](http://twitter.com/maningsambale).
 
 ### How to share your progress
 
