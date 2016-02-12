@@ -38,11 +38,16 @@ BlockGroupPly/BlockGroupPly.shp: BlockGroupPly
 BldgPly/buildings.shp: BldgPly
 	rm -f BldgPly/buildings.*
 # Specify CODE=Building to ignore CODE=Courtyard, suppressing Pasadena #20
-        ogr2ogr -where "SOURCE <> 'Pasadena' AND CODE='Building'" -simplify 0.2 -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
+# Use custom -s_srs definition  per https://github.com/osmlab/labuildings/issues/25#issuecomment-181674580
+        ogr2ogr -where "SOURCE <> 'Pasadena' AND CODE='Building'" -simplify 0.2 \
+        -s_srs '+proj=lcc +lat_1=35.46666666666667 +lat_2=34.03333333333333 +lat_0=33.5 +lon_0=-118 +x_0=2000000.000101601 +y_0=500000.0001016002 +ellps=GRS80 +towgs84=-0.9956,1.9013,0.5215,0.025915,0.009426,0.011599,-0.00062 +units=us-ft +no_defs' \
+        -t_srs EPSG:4326 -overwrite BldgPly/buildings.shp BldgPly/lariac_buildings_2008.shp
 
 AddressPt/addresses.shp: AddressPt
 	rm -f AddressPt/addresses.*
-	ogr2ogr -t_srs EPSG:4326 -overwrite AddressPt/addresses.shp AddressPt/lacounty_address_points.shp
+	ogr2ogr \
+        -s_srs '+proj=lcc +lat_1=35.46666666666667 +lat_2=34.03333333333333 +lat_0=33.5 +lon_0=-118 +x_0=2000000.000101601 +y_0=500000.0001016002 +ellps=GRS80 +towgs84=-0.9956,1.9013,0.5215,0.025915,0.009426,0.011599,-0.00062 +units=us-ft +no_defs' \
+        -t_srs EPSG:4326 -overwrite AddressPt/addresses.shp AddressPt/lacounty_address_points.shp
 
 BlockGroupPly/blockgroups.shp: BlockGroupPly/BlockGroupPly.shp
 	rm -f BlockGroupPly/blockgroups.*
