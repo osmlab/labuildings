@@ -13,7 +13,7 @@ How to import
 
  * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. 
  Usually, it's your existing OSM username followed by `_imports` (e.g. `maning_imports)`.
- Post your import account username in this [ticket](http://github.com/osmlab/labuildings/issues/future_ticket_number).
+ Post your import account username in this [ticket](http://github.com/osmlab/labuildings/issues/40).
 
 ### Getting familiar with JOSM
 
