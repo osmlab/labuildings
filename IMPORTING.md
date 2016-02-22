@@ -13,18 +13,18 @@ How to import
 
  * OSM best practices require that you do not use your normal OSM account for the imports. Create a new account for this purpose. 
  Usually, it's your existing OSM username followed by `_imports` (e.g. `maning_imports)`.
- Post your import account username in this [ticket](http://github.com/osmlab/labuildings/issues/future_ticket_number).
+ Post your import account username in this [ticket](http://github.com/osmlab/labuildings/issues/40).
 
 ### Getting familiar with JOSM
 
-To contribute to this project, you need to use JOSM.  Here are some resources to get you started:
+To contribute to this project, you need to use the JOSM editor.  Here are some resources to get you started:
  * LearnOSM - http://learnosm.org/en/josm/
- * Mapbox Mapping wiki - https://github.com/mapbox/mapping/wiki/Getting-started
+ * Mapbox Mapping wiki - https://www.mapbox.com/blog/making-the-most-josm/
 
 ### Check out a task on the tasking manager
 
- * Tasks will be available on this **[Tasking Manager](link soon)**.
- * priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
+ * Tasks will be available on this **[Tasking Manager](http://52.74.49.58:6543/project/15 link soon)**.
+ * Priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
  * why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
 ## Import workflow
