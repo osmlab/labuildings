@@ -54,7 +54,7 @@ Rivers and Lakes,,
 Rooming/Boarding House,building,boarding_house
 School (Private),building,school
 Senior Day Care Center,,
-Service Station,,
+Service Station,building,fuel_station
 "Shopping Center (Neighborhood, Community)",building,retail
 Shopping Center (Regional),building,retail
 Single Family Residence,building,house
@@ -65,10 +65,10 @@ Supermarket,building,retail
 Theater,building,cinema
 Three Units (Any Combination),building,apartments
 Truck Crops,building,farm
-Utility,,
+Utility,building,utility
 Vineyard,building,farm
 "Warehousing, Distribution, Storage",building,warehouse
 Waste,building,farm
-Water Recreation,building,farm
+Water Recreation,,
 Water Rights,,
 Wholesale and Manufacturing Outlet,building,retail
