@@ -74,7 +74,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ### Validate the import with your eyes before uploading!
 
  * Run the [JOSM validator](http://wiki.openstreetmap.org/wiki/JOSM/Validator). Check for any errors it detects.
-  * Check for small building parts that should be joined to the main building. We've already found a few examples of these in the data (see [issue #19](https://github.com/osmlab/labuildings/issues/19)), so make sure you keep an eye out for these.  To join small parts, select both polygon and select, **Tools > Join overlapping Area**
+ * Check for small building parts that should be joined to the main building. We've already found a few examples of these in the data (see [issue #19](https://github.com/osmlab/labuildings/issues/19)), so make sure you keep an eye out for these.  To join small parts, select both polygon and select, **Tools > Join overlapping Area**
  * Inspect everything else with a critical eye! Don't trust that the validator or FIXME tags will catch everything. There may be other bugs that only you can detect. Use your human smarts!
  
 ### Conflating with existing data
