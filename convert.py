@@ -420,7 +420,7 @@ def convert(buildingsFile, osmOut):
                 way.append(etree.Element('tag', k='elevation', v=str(elevation)))
         if 'BLD_ID' in building['properties']:
             way.append(etree.Element('tag', k='lacounty:bld_id', v=str(building['properties']['BLD_ID'])))
-        if 'AIN' in building['properties'] is not None:
+        if 'AIN' in building['properties'] and building['properties']['AIN'] is not None:
             way.append(etree.Element('tag', k='lacounty:ain', v=str(building['properties']['AIN'])))
 #        if address:
 #            appendAddress(address, way)
