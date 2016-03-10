@@ -59,7 +59,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  
  ![replace](https://cloud.githubusercontent.com/assets/353700/12942518/ddba87a4-d001-11e5-9441-2561f67b45bc.gif) 
 
-*  Run JOSM Validator, if there are errors, fix them. 
+ *  Run JOSM Validator, if there are errors, fix them. 
 
 ![validator](https://cloud.githubusercontent.com/assets/353700/12942520/ddc572f4-d001-11e5-8cf6-399511cd47fa.gif) 
 
