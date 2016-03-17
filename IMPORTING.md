@@ -54,8 +54,13 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  * Review both data layer for conflicts.
  * Examine tags in both data sets to see if there are any conflicts.
  * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
- * Manually merge the layers together: preserve the work of previous mappers wherever possible. Copy address information and building height to existing building shapes if they are of higher quality.
- * If the imported data are of higher quality, select both building and use the **Replace geometry** tool. 
+ * Preserve the work of previous mappers wherever possible.  If existing buildings in OSM are of higher quality:
+  * Copy the tags from the import layer version.
+  * Delete the building from the import layer.
+  * Switch to the OSM layer.
+  * Select the building, paste the tags.
+* Manually merge the layers together: preserve the work of previous mappers wherever possible. 
+* If the imported data are of higher quality, select both building and use the **Replace geometry** tool. 
  
  ![replace](https://cloud.githubusercontent.com/assets/353700/12942518/ddba87a4-d001-11e5-9441-2561f67b45bc.gif) 
 
