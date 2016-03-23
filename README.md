@@ -147,7 +147,7 @@ See the `convert.py` script to see the implementation of these transformations.
 | CODE |  |  |  | Ignore | Note: only CODE=`Building` is used for this import. We ignore CODE='Courtyard'. This filtering step happens in the Makefile |
 | BLD_ID | `lacounty:bld_id` | Building Outlines | Unique Building ID | Add | Special OSM Tag |
 | HEIGHT | `height` | Building Outlines | The height of the highest major feature of the building (not including roof objects like antennas and chimneys) | Add | map to tag, only if height >0 |
-| ELEV | `elevation` | Building Outlines | The elevation of the building | Add | map to elevation, only if elevation > 0 |
+| ELEV | `ele` | Building Outlines | The elevation of the building | Add | map to elevation, only if elevation > 0 |
 | AREA |  | Building Outlines | Roof Area | Ignore | Mostly null |
 | SOURCE |  | Building Outlines | The data source (either LARIAC2, Pasadena, Palmdale, or Glendale) | Ignore |  |
 | AIN |  | Building Outlines | The parcel ID number | Ignore | Used to map stray addresses to buildings and link datasets |
