@@ -35,7 +35,7 @@ High Rise 5 Stories or More,,
 Horse Stable - Private,,
 Hotel - 50 Rooms and Over,,
 Hotel - Under 50 Rooms,,
-Ice,,
+Ice,sport,ice_skating
 Legitimate (Stage) Theater,,
 Loft-type Buildings,office,yes
 Lots - Commercial Parking,,
@@ -73,7 +73,7 @@ Recreation,,
 "Restaurant, Cocktail Lounge, Tavern",,
 "Retail-Warehouse Combo (Levitz, etc.)",,
 Rights of Way,,
-Roller,,
+Roller,sport,roller_skating
 Self Service,,
 Single Residence,,
 "Small Food Store - Less than 6,000 SF",,
