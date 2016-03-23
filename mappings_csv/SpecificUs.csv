@@ -51,9 +51,9 @@ Race Track,sport,equestrian
 "Restaurant, Cocktail Lounge",building,commercial
 Rights of Way,,
 Rivers and Lakes,,
-Rooming/Boarding House,building,boarding_house
+Rooming/Boarding House,,
 School (Private),building,school
-Senior Day Care Center,,
+Senior Day Care Center,social_facility,day_care
 Service Station,building,fuel_station
 "Shopping Center (Neighborhood, Community)",building,retail
 Shopping Center (Regional),building,retail
