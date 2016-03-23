@@ -1,9 +1,9 @@
 SpecificUse,osm_key1,osm_val1
 Animal Kennel,,
-Athletic and Amusement Facility,,
+Athletic and Amusement Facility,sport,athletics
 "Auto, Recreation Equipment, Construction Equipment Sales and Service",,
 "Bank, Savings and Loan",amenity,bank
-Bowling Alley,,
+Bowling Alley,leisure,bowling_alley
 Camp,,
 "Cemetery, Mausoleum, Mortuary",,
 Children's Day Care Center,building,kindergarten
