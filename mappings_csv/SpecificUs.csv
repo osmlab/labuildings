@@ -62,7 +62,7 @@ Skating Rink,,
 Store,building,retail
 Store Combination,building,retail
 Supermarket,building,retail
-Theater,building,cinema
+Theater,,
 Three Units (Any Combination),building,apartments
 Truck Crops,building,farm_auxiliary
 Utility,building,utility
