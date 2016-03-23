@@ -54,11 +54,11 @@ Rivers and Lakes,,
 Rooming/Boarding House,,
 School (Private),building,school
 Senior Day Care Center,social_facility,day_care
-Service Station,building,fuel_station
+Service Station,amenity,fuel
 "Shopping Center (Neighborhood, Community)",building,retail
 Shopping Center (Regional),building,retail
 Single Family Residence,building,house
-Skating Rink,building,recreation
+Skating Rink,,
 Store,building,retail
 Store Combination,building,retail
 Supermarket,building,retail
