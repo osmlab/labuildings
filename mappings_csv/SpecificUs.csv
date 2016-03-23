@@ -65,7 +65,7 @@ Supermarket,building,retail
 Theater,,
 Three Units (Any Combination),building,apartments
 Truck Crops,building,farm_auxiliary
-Utility,building,utility
+Utility,,
 Vineyard,building,farm_auxiliary
 "Warehousing, Distribution, Storage",building,warehouse
 Waste,building,farm_auxiliary
