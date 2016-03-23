@@ -11,7 +11,7 @@ Church,building,church
 "Club, Lodge Hall, Fraternal Organization",,
 "College, University (Private)",building,college
 Commercial,building,commercial
-Dairy,building,farm
+Dairy,building,farm_auxiliary
 Department Store,building,department_store
 Desert,building,farm
 "Double, Duplex, or Two Units",building,residential
