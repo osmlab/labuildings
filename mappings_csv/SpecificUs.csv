@@ -12,16 +12,16 @@ Church,building,church
 "College, University (Private)",building,college
 Commercial,building,commercial
 Dairy,building,farm_auxiliary
-Department Store,building,department_store
-Desert,building,farm
+Department Store,shop,department_store
+Desert,building,farm_auxiliary
 "Double, Duplex, or Two Units",building,residential
 Dump Site,building,industrial
-Feed Lot,building,farm
-Field Crops,building,farm
+Feed Lot,building,farm_auxiliary
+Field Crops,building,farm_auxiliary
 Five or More Units or Apartments (Any Combination),building,apartments
 Food Processing Plant,building,factory
 Four Units (Any Combination),building,apartments
-Fruits and Nuts,building,farm
+Fruits and Nuts,building,farm_auxiliary
 Golf Course,building,recreational
 Government Owned Property,,
 Heavy Manufacturing,building,industrial
@@ -41,10 +41,10 @@ Office Building,building,commercial
 Open Storage,building,warehouse
 Parking Lot (Commercial Use Property),building,commercial
 Parking Lot (Industrial Use Property),building,industrial
-Pasture,building,farm
+Pasture,building,farm_auxiliary
 Petroleum and Gas,building,industrial
 "Pipeline, Canal",building,industrial
-"Poultry, etc.",building,farm
+"Poultry, etc.",building,farm_auxiliary
 Privately Owned,,
 Professional Building,building,commercial
 Race Track,building,recreational
@@ -64,11 +64,11 @@ Store Combination,building,retail
 Supermarket,building,retail
 Theater,building,cinema
 Three Units (Any Combination),building,apartments
-Truck Crops,building,farm
+Truck Crops,building,farm_auxiliary
 Utility,building,utility
-Vineyard,building,farm
+Vineyard,building,farm_auxiliary
 "Warehousing, Distribution, Storage",building,warehouse
-Waste,building,farm
+Waste,building,farm_auxiliary
 Water Recreation,,
 Water Rights,,
 Wholesale and Manufacturing Outlet,building,retail
