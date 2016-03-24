@@ -1,5 +1,4 @@
-import csv
-import json
+import csv, json
 from os.path import join
 
 CSV_PATH = 'mappings_csv/'
