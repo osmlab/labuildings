@@ -3,7 +3,7 @@ Commercial,building,commercial
 Dry Farm,building,farm
 Industrial,building,industrial
 Institutional,building,yes
-Irrigated Farm,building,farm
+Irrigated Farm,building,farm_auxiliary
 Miscellaneous,building,yes
 Recreational,building,yes
 Residential,building,residential
