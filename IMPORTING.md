@@ -41,13 +41,14 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  * Choose which area you want to work on from the **[Tasking Manager-link TBD](link soon)** and click **Start Mapping**
  * Download current data in OSM by clicking **Edit in JOSM**
  
- ![download osm](https://cloud.githubusercontent.com/assets/353700/13667998/b04127f2-e6df-11e5-95c4-bc80471dee61.gif)
+
+![download_osm](https://cloud.githubusercontent.com/assets/353700/14101327/6f8b279a-f5b1-11e5-83ef-b28d00afca62.gif)
  
  
- * Get the `.osm` file you will import by clicking **Download data in JOSM**.  This will download as a new layer in JOSM.
+ * Get the `.osm` file you will import by clicking the link in the **Extra Instructions**.  This will download a new layer in JOSM.
    At least two layers should be in JOSM: one with the imported data, one with current OSM data.
 
- ![getdata](https://cloud.githubusercontent.com/assets/353700/12942521/ddcbf232-d001-11e5-96c4-5223bd633647.gif)
+ ![download_import](https://cloud.githubusercontent.com/assets/353700/14101326/6f64d14e-f5b1-11e5-9748-8c56995a256d.gif)
 
 ### Reviewing the data before uploading
 
