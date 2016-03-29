@@ -36,7 +36,7 @@ Horse Stable - Private,,
 Hotel - 50 Rooms and Over,,
 Hotel - Under 50 Rooms,,
 Ice,sport,ice_skating
-Legitimate (Stage) Theater,amenity,theater
+Legitimate (Stage) Theater,,
 Loft-type Buildings,office,yes
 Lots - Commercial Parking,,
 Lots - Patron or Employee,,
@@ -53,8 +53,8 @@ Motel - 50 Rooms and Over,,
 Motel - Under 50 Rooms,,
 Motel/Hotel and Apartment Combinations - 50 Units and Over,,
 Motel/Hotel and Apartment Combinations - Under 50 Units,,
-Movie - Drive-in,amenity,cinema
-Movie - Indoor,amenity,cinema
+Movie - Drive-in,,
+Movie - Indoor,,
 Multiple Residence,,
 New Car Sales and Service,building:use,car
 Non Profit,,
