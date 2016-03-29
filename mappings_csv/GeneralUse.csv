@@ -1,6 +1,6 @@
 GeneralUse,osm_key1,osm_val1
 Commercial,building,commercial
-Dry Farm,building,farm
+Dry Farm,building,farm_auxiliary
 Industrial,building,industrial
 Institutional,building,yes
 Irrigated Farm,building,farm_auxiliary
