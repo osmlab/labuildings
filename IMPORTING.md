@@ -53,10 +53,10 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ### Reviewing the data before uploading
 
  * Review both data layer for conflicts.
- * Examine tags in both data sets to see if there are any conflicts.
+ * Examine tags in both layer to see if there are any conflicts.
  * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. 
  (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create 
- [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
+ [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then, unlock your task on the tasking manager and pick a new area to work on.
 
 * Preserve the work of previous mappers wherever possible.  If existing buildings in OSM are of higher quality:
   * Copy the tags from the import layer version.
@@ -75,7 +75,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Finally, upload it
 
- * Add the tag `#labuildings` to your changesets.
+ * Use `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` to your changeset comment.
  
 ![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
 
