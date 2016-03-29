@@ -14,7 +14,7 @@ Car Wash Only,building:use,car_wash
 "Car Wash Only, Self-service Type",building:use,car_wash
 "Cement, Rock and Gravel Plant",,
 "Cemetery, Mausoleum",,
-Church Parking Lot,building,yes
+Church Parking Lot,,
 "Commercial Swimming Pools, School",,
 Concessions,,
 Contractor Storage Yard,building:use,storage_yard
