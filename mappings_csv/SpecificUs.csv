@@ -1,8 +1,8 @@
 SpecificUse,osm_key1,osm_val1
 Animal Kennel,,
-Athletic and Amusement Facility,sport,athletics
+Athletic and Amusement Facility,,
 "Auto, Recreation Equipment, Construction Equipment Sales and Service",,
-"Bank, Savings and Loan",amenity,bank
+"Bank, Savings and Loan",building,commercial
 Bowling Alley,leisure,bowling_alley
 Camp,,
 "Cemetery, Mausoleum, Mortuary",,
@@ -25,7 +25,7 @@ Fruits and Nuts,building,farm_auxiliary
 Golf Course,sport,golf
 Government Owned Property,,
 Heavy Manufacturing,building,industrial
-Homes for Aged and Others,amenity,nursing_home
+Homes for Aged and Others,building,residential
 Hospital,building,hospital
 Hotel and Motel,building,hotel
 Industrial,building,industrial
@@ -47,14 +47,14 @@ Petroleum and Gas,building,industrial
 "Poultry, etc.",building,farm_auxiliary
 Privately Owned,,
 Professional Building,building,commercial
-Race Track,sport,equestrian
+Race Track,,
 "Restaurant, Cocktail Lounge",building,commercial
 Rights of Way,,
 Rivers and Lakes,,
 Rooming/Boarding House,,
 School (Private),building,school
 Senior Day Care Center,social_facility,day_care
-Service Station,amenity,fuel
+Service Station,building,commercial
 "Shopping Center (Neighborhood, Community)",building,retail
 Shopping Center (Regional),building,retail
 Single Family Residence,building,house
