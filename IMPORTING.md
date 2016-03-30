@@ -23,7 +23,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Check out a task on the tasking manager
 
- * Tasks will be available on this **[Tasking Manager](http://52.74.49.58:6543/project/15 link soon)**.
+ * Tasks will be available on this **[Tasking Manager](http://labuildingsimport.com/)**.
  * Priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
  * Why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
@@ -38,7 +38,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Selecting a task in the Tasking Manager
 
- * Choose which area you want to work on from the **[Tasking Manager-link TBD](link soon)** and click **Start Mapping**
+ * Choose which area you want to work on from the **[Tasking Manager](http://labuildingsimport.com/)** and click **Start Mapping**
  * Download current data in OSM by clicking **Edit in JOSM**
  
 
@@ -116,5 +116,5 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ### How to communicate with other mappers
 
  * JOSM [GeoChat](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/GeoChat) feature
- * Twitter hashtag (TBD)
+ * Twitter hashtag `#labuildings`
  * Befriend other mappers on openstreetmap.com
