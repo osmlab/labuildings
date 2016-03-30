@@ -23,7 +23,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Check out a task on the tasking manager
 
- * Tasks will be available on this **[Tasking Manager](http://52.74.49.58:6543/project/15 link soon)**.
+ * Tasks will be available on this **[Tasking Manager](http://labuildingsimport.com/)**.
  * Priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
  * Why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
@@ -38,24 +38,25 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Selecting a task in the Tasking Manager
 
- * Choose which area you want to work on from the **[Tasking Manager-link TBD](link soon)** and click **Start Mapping**
+ * Choose which area you want to work on from the **[Tasking Manager](http://labuildingsimport.com/)** and click **Start Mapping**
  * Download current data in OSM by clicking **Edit in JOSM**
  
- ![download osm](https://cloud.githubusercontent.com/assets/353700/13667998/b04127f2-e6df-11e5-95c4-bc80471dee61.gif)
+
+![download_osm](https://cloud.githubusercontent.com/assets/353700/14101327/6f8b279a-f5b1-11e5-83ef-b28d00afca62.gif)
  
  
- * Get the `.osm` file you will import by clicking **Download data in JOSM**.  This will download as a new layer in JOSM.
+ * Get the `.osm` file you will import by clicking the link in the **Extra Instructions**.  This will download a new layer in JOSM.
    At least two layers should be in JOSM: one with the imported data, one with current OSM data.
 
- ![getdata](https://cloud.githubusercontent.com/assets/353700/12942521/ddcbf232-d001-11e5-96c4-5223bd633647.gif)
+ ![download_import](https://cloud.githubusercontent.com/assets/353700/14101326/6f64d14e-f5b1-11e5-9748-8c56995a256d.gif)
 
 ### Reviewing the data before uploading
 
  * Review both data layer for conflicts.
- * Examine tags in both data sets to see if there are any conflicts.
+ * Examine tags in both layer to see if there are any conflicts.
  * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. 
  (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create 
- [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
+ [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then, unlock your task on the tasking manager and pick a new area to work on.
 
 * Preserve the work of previous mappers wherever possible.  If existing buildings in OSM are of higher quality:
   * Copy the tags from the import layer version.
@@ -74,7 +75,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Finally, upload it
 
- * Add the tag `#labuildings` to your changesets.
+ * Use `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` to your changeset comment.
  
 ![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
 
@@ -115,5 +116,5 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ### How to communicate with other mappers
 
  * JOSM [GeoChat](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/GeoChat) feature
- * Twitter hashtag (TBD)
+ * Twitter hashtag `#labuildings`
  * Befriend other mappers on openstreetmap.com
