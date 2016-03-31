@@ -24,8 +24,8 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ## Import workflow
 
 ### Activating JOSM Remote Control
- * Open JOSM and activate JOSM Remote Control. In the JOSM menu, select **Edit > Preferences...** or press F12
- * Click on the remote control icon
+ * Open JOSM and activate JOSM Remote Control. In the JOSM menu, select **Edit > Preferences...** or press `F12`.
+ * Click on the remote control icon.
  * Select **Enable Remote Control** and click **OK**.
  
  ![josm_rc](https://cloud.githubusercontent.com/assets/353700/13667682/adc1f10c-e6dd-11e5-8f01-e83a52460bfd.gif)
@@ -35,8 +35,8 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Selecting a task in the Tasking Manager
 
- * Choose which area you want to work on from **[http://labuildingsimport.com](http://labuildingsimport.com)** and click **Start Mapping**
- * Download current data in OSM by clicking **Edit in JOSM**
+ * Choose which area you want to work on from **[http://labuildingsimport.com](http://labuildingsimport.com)** and click **Start Mapping**.
+ * Download current data in OSM by clicking **Edit in JOSM**.
  
 ![download_osm](https://cloud.githubusercontent.com/assets/353700/14101327/6f8b279a-f5b1-11e5-83ef-b28d00afca62.gif)
  
@@ -51,7 +51,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
  * Review both data layer for possible conflicts.
  * Examine tags in both data sets to see if there are any conflicts.
- * If there are any problems you don't know how to deal with, do not proceed. Instead flag the `.osm` file for a more advanced user to look at. 
+ * If there are any problems you don't know how to deal with, do not proceed. Instead, flag the `.osm` file for a more advanced user to look at. 
  (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create 
  [OSM notes](http://wiki.openstreetmap.org/wiki/Notes)). Then unlock your task on the tasking manager and pick a new area to work on.
 
@@ -90,10 +90,10 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  * Carefully combine the import data with the existing OSM data. If you aren't sure about some tags, ask someone! Especially ask the original mapper! 
  
 ### How to ground-truth the data
- * Up-to-date aerial imagery... try several sources
- * See if the street is on [Mapillary](http://www.mapillary.com/map/search/33.7585334163995/34.026616549869615/-118.72937986848933/-117.82764503425584)
+ * Up-to-date aerial imagery... try several sources.
+ * See if the street is on [Mapillary](http://www.mapillary.com/map/search/33.7585334163995/34.026616549869615/-118.72937986848933/-117.82764503425584).
  * Go out and check it out yourself! Take a field trip!
- * **DO NOT USE GOOGLE MAPS OR GOOGLE STREET VIEW**
+ * **DO NOT USE GOOGLE MAPS OR GOOGLE STREET VIEW**.
 
 ### Identifying New Buildings with imported and existing data
 * Aerial imagery used as a basemap should help to identify and draw newer buildings not found in the imported an existing data.
@@ -109,11 +109,11 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### How to share your progress
 
- * Make sure you close your task on the tasking manager
+ * Make sure you close your task on the tasking manager.
 
 ### How to communicate with other mappers
 
- * JOSM [GeoChat](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/GeoChat) feature
- * Twitter hashtag `#labuildings`
- * Befriend other mappers on openstreetmap.com
+ * JOSM [GeoChat](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/GeoChat) feature.
+ * Twitter hashtag `#labuildings`.
+ * Befriend other mappers on openstreetmap.com.
 
