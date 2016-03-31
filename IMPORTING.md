@@ -72,7 +72,8 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Finally, upload it
 
- * Use the changeset comment: `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` and source `LA County GIS, http://egis3.lacounty.gov/dataportal/`.
+ * Use the **changeset comment**: `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` 
+ and **source**: `LA County GIS, http://egis3.lacounty.gov/dataportal/`.
  * Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
  
 ![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
