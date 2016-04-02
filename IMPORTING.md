@@ -106,7 +106,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
  * Create [issues](http://github.com/osmlab/labuildings/issues) on this github repo.
  * Ask questions on the [gitter channel](http://gitter.im/osmlab/labuildings).
- * Contact [@almccon](http://twitter.com/almccon), [@theworksla](https://twitter.com/theworksla),  [@jschleuss](http://twitter.com/jschleuss),  [@maningsambale](http://twitter.com/maningsambale).
+ * Contact [@mappingmashups](http://twitter.com/mappingmashups), [@theworksla](https://twitter.com/theworksla),  [@jschleuss](http://twitter.com/jschleuss),  [@maningsambale](http://twitter.com/maningsambale).
 
 ### How to share your progress
 
