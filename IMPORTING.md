@@ -24,7 +24,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ## Import workflow
 
 ### Activating JOSM Remote Control
- * Open JOSM and activate JOSM Remote Control. In the JOSM menu, select **Edit > Preferences...** or press `F12`.
+ * Open JOSM and activate JOSM Remote Control. In the JOSM menu, for Windows, select **Edit > Preferences...** or press `F12`. For Mac, select **JOSM > Preferences...** or press, `⌘,`.
  * Click on the remote control icon.
  * Select **Enable Remote Control** and click **OK**.
  
