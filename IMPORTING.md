@@ -72,10 +72,29 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Finally, upload it
 
- * Use the **changeset comment**: `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` 
+* Select both layers by right-clicking them both.
+
+![screen shot 2016-04-02 at 3 51 03 pm](https://cloud.githubusercontent.com/assets/3673236/14229615/ad4ea4ec-f8ec-11e5-8186-1980d0090ed9.png)
+* Right-click the layers and click Merge.
+
+![screen shot 2016-04-02 at 3 51 12 pm](https://cloud.githubusercontent.com/assets/3673236/14229616/ad4ebafe-f8ec-11e5-9ae0-444dcf540264.png)
+* Merge onto the `buildings-...osm` file.
+
+![screen shot 2016-04-02 at 3 51 21 pm](https://cloud.githubusercontent.com/assets/3673236/14229618/ad65cf96-f8ec-11e5-8d72-a6b661adedbd.png) 
+* Click the Upload button, the green up arrow button.
+
+![screen shot 2016-04-02 at 3 53 02 pm](https://cloud.githubusercontent.com/assets/3673236/14229617/ad64e298-f8ec-11e5-9693-ba3f3a0e2085.png)
+* Click Continue Upload
+
+![screen shot 2016-04-02 at 3 53 11 pm](https://cloud.githubusercontent.com/assets/3673236/14229619/ad72b6c0-f8ec-11e5-97b6-66b43f1c2937.png)
+
+* Use the **changeset comment**: `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` 
  and **source**: `LA County GIS, http://egis3.lacounty.gov/dataportal/`.
- * Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
- 
+
+* Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
+![screen shot 2016-04-02 at 3 53 17 pm](https://cloud.githubusercontent.com/assets/3673236/14229620/ad73128c-f8ec-11e5-9e2f-44d272bd6403.png)
+
+
 ![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
 
 ## What to watch out for
