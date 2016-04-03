@@ -98,7 +98,9 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Identifying New Buildings with imported and existing data
 * Aerial imagery used as a basemap should help to identify and draw newer buildings not found in the imported an existing data.
-* Newer building should be identified and flagged. (This process should not be done, pending approval and recommendations from the OSM Community.)
+* Newer building should be identified and flagged. (This process should not be done, pending approval and recommendations from the OSM Community.) Tag the building with `fixme` and add a note: `Appears in satelite imagery.`
+![screen shot 2016-04-02 at 3 19 31 pm](https://cloud.githubusercontent.com/assets/3673236/14229396/ab9f392c-f8e7-11e5-80ca-635b97332bd8.png)
+
  
 ## Communicate communicate communicate!
 
