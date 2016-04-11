@@ -21,7 +21,7 @@ This README is about data conversion. See also the [page on the OSM wiki](https:
 
 ![LA buildings screenshot](la_buildings_screenshot.png?raw=true "LA buildings screenshot from QGIS")
 
-Sample .osm files (**not ready for import yet**) are in this [zip file](https://github.com/osmlab/labuildings/blob/master/venice_osm.zip?raw=true).
+Sample .osm files (**not ready for import yet**) are in this [zip file](https://github.com/osmlab/labuildings/blob/master/sample_osm.zip?raw=true).
 
 Browse a slippy map of the data [here](http://stamen.cartodb.com/u/stamen-org/viz/ff53ba6e-9788-11e4-945a-f23c91504230/public_map)
 
