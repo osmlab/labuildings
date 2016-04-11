@@ -91,11 +91,9 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 * Use the **changeset comment**: `LA County Building Import #labuildings https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import ` 
  and **source**: `LA County GIS, http://egis3.lacounty.gov/dataportal/`.
 
-* Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
 ![screen shot 2016-04-02 at 3 53 17 pm](https://cloud.githubusercontent.com/assets/3673236/14229620/ad73128c-f8ec-11e5-9e2f-44d272bd6403.png)
 
-
-![upload](https://cloud.githubusercontent.com/assets/353700/12942517/ddb5c930-d001-11e5-826a-342c3f80f014.gif) 
+* Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
 
 ## What to watch out for
 
@@ -103,6 +101,20 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
  * Run the [JOSM validator](http://wiki.openstreetmap.org/wiki/JOSM/Validator). Check for any errors it detects.
  * Check for small building parts that should be joined to the main building. We've already found a few examples of these in the data (see [issue #19](https://github.com/osmlab/labuildings/issues/19)), so make sure you keep an eye out for these.  To join small parts, select both polygon and select, **Tools > Join overlapping Area**.
+ 
+ ![screen shot 2016-04-04 at 2 38 36 pm](https://cloud.githubusercontent.com/assets/695934/14264162/74ab59f4-fa73-11e5-8c4e-896c7fa2c2e4.png)
+
+If it's a small sliver, it makes sense that the "proper" data is on the larger object. Then delete all the tags with the sliver and join. If it's larger, like a strip mall split into pieces then do:
+
+- `lacounty:ain` -> ALL
+- `lacount:bld_id` -> ALL
+- `start_date` -> None if multiple or the one option if there's only one
+- `height` -> largest number
+- `ele` -> largest number 
+- `building:units` -> none if different
+
+![screen shot 2016-04-04 at 2 38 44 pm](https://cloud.githubusercontent.com/assets/695934/14264157/6c9f23ee-fa73-11e5-8744-e49d7e179003.png)
+
  * Inspect everything else with a critical eye! Don't trust that the validator or FIXME tags will catch everything. There may be other bugs that only you can detect. Use your human smarts!
  
 ### Conflating with existing data
@@ -138,4 +150,3 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  * JOSM [GeoChat](http://wiki.openstreetmap.org/wiki/JOSM/Plugins/GeoChat) feature.
  * Twitter hashtag `#labuildings`.
  * Befriend other mappers on openstreetmap.com.
-
