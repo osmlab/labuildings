@@ -19,7 +19,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
  * Tasks will be available on **[http://labuildingsimport.com](http://labuildingsimport.com)**.
  * Priority: we are working on Los Angeles City first, which is broken down by census block groups. Each task performed is one block group within the city boundaries.
- * Why? because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
+ * Why? Because different parts of the county have different data problems to watch out for. If we all run into the same problems at the same time, it will be easier for us to help each other and improve the processing scripts and the import workflow.
 
 ## Import workflow
 
@@ -49,7 +49,7 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ### Reviewing the data before uploading
 
- * Review both data layer for possible conflicts.
+ * Review both data layers for possible conflicts.
  * Examine tags in both data sets to see if there are any conflicts.
  * If there are any problems you don't know how to deal with, do not proceed. Instead, flag the `.osm` file for a more advanced user to look at. 
  (Use github [issues](http://github.com/osmlab/labuildings/issues) to flag concerns, and/or create 
@@ -66,25 +66,25 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  
  ![replace](https://cloud.githubusercontent.com/assets/353700/12942518/ddba87a4-d001-11e5-9441-2561f67b45bc.gif) 
 
- *  Run JOSM Validator, if there are errors, fix them. 
+ *  Run JOSM Validator, and if there are errors, fix them. 
 
 ![validator](https://cloud.githubusercontent.com/assets/353700/12942520/ddc572f4-d001-11e5-8cf6-399511cd47fa.gif) 
 
 ### Finally, upload it
 
-* Select both layers by right-clicking them both.
+* Select both layers by shift-clicking them both.
 
 ![screen shot 2016-04-02 at 3 51 03 pm](https://cloud.githubusercontent.com/assets/3673236/14229615/ad4ea4ec-f8ec-11e5-8186-1980d0090ed9.png)
 * Right-click the layers and click Merge.
 
 ![screen shot 2016-04-02 at 3 51 12 pm](https://cloud.githubusercontent.com/assets/3673236/14229616/ad4ebafe-f8ec-11e5-9ae0-444dcf540264.png)
-* Merge onto the `buildings-...osm` file.
+* Merge onto the `buildings-...osm` layer.
 
 ![screen shot 2016-04-02 at 3 51 21 pm](https://cloud.githubusercontent.com/assets/3673236/14229618/ad65cf96-f8ec-11e5-8d72-a6b661adedbd.png) 
 * Click the Upload button, the green up arrow button.
 
 ![screen shot 2016-04-02 at 3 53 02 pm](https://cloud.githubusercontent.com/assets/3673236/14229617/ad64e298-f8ec-11e5-9693-ba3f3a0e2085.png)
-* Click Continue Upload
+* If you see a "Suspicious data found" warning, click "Continue upload"
 
 ![screen shot 2016-04-02 at 3 53 11 pm](https://cloud.githubusercontent.com/assets/3673236/14229619/ad72b6c0-f8ec-11e5-97b6-66b43f1c2937.png)
 
@@ -92,6 +92,8 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
  and **source**: `LA County GIS, http://egis3.lacounty.gov/dataportal/`.
 
 ![screen shot 2016-04-02 at 3 53 17 pm](https://cloud.githubusercontent.com/assets/3673236/14229620/ad73128c-f8ec-11e5-9e2f-44d272bd6403.png)
+
+If you see an Authorization window asking you to log in to OpenStreetMap, log in and remember to use your `_import` username.
 
 * Go back to the Tasking Manager and click **Mark task as done**.  Another mapper will validate your edits.
 
