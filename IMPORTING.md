@@ -102,11 +102,13 @@ If you see an Authorization window asking you to log in to OpenStreetMap, log in
 ### Validate the import with your eyes before uploading!
 
  * Run the [JOSM validator](http://wiki.openstreetmap.org/wiki/JOSM/Validator). Check for any errors it detects.
- * Check for small building parts that should be joined to the main building. We've already found a few examples of these in the data (see [issue #19](https://github.com/osmlab/labuildings/issues/19)), so make sure you keep an eye out for these.  To join small parts, select both polygon and select, **Tools > Join overlapping Area**.
+ * Check for small building parts that should be joined to the main building. We've already found a few examples of these in the data (see [issue #19](https://github.com/osmlab/labuildings/issues/19)), so make sure you keep an eye out for these.  To join small parts, select both polygons and select **Tools > Join overlapping Area**.
  
  ![screen shot 2016-04-04 at 2 38 36 pm](https://cloud.githubusercontent.com/assets/695934/14264162/74ab59f4-fa73-11e5-8c4e-896c7fa2c2e4.png)
 
-If it's a small sliver, it makes sense that the "proper" data is on the larger object. Then delete all the tags with the sliver and join. If it's larger, like a strip mall split into pieces then do:
+If it's a small sliver, it makes sense that the "proper" data is on the larger object. Delete all the tags on the sliver and join the two objects.
+
+If it's larger, like a strip mall split into pieces, then do:
 
 - `lacounty:ain` -> ALL
 - `lacount:bld_id` -> ALL
