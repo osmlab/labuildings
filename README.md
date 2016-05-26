@@ -5,8 +5,6 @@ LA Buildings
 
 Los Angeles County building and address import
 
-**TEMPORARY PAUSE: starting May 4th, we're going to pause our imports while the OSM server team prepares for [scheduled downtime on May 9th](https://blog.openstreetmap.org/2016/05/02/planned-server-outage-9th-may/). See [issue #88](https://github.com/osmlab/labuildings/issues/88) for updates**
-
 Generates an OSM file of buildings with addresses per census block groups,
 ready to be used in JOSM for a manual review and upload to OpenStreetMap. This repository is based heavily on the [NYC building import](https://github.com/osmlab/nycbuildings)
 
