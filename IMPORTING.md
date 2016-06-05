@@ -23,6 +23,9 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 
 ## Import workflow
 
+### Download and install the auto-tools plugin
+ * The good folks at Mapbox created a plugin to merge building shapes sliced by parcel boundaries. You can [find it here](https://github.com/mapbox/auto-tools). 
+
 ### Activating JOSM Remote Control
  * Open JOSM and activate JOSM Remote Control. In the JOSM menu, for Windows, select **Edit > Preferences...** or press `F12`. For Mac, select **JOSM > Preferences...** or press, `⌘,`.
  * Click on the remote control icon.
