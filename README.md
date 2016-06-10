@@ -12,7 +12,7 @@ You can jump in and [follow the guide](https://github.com/osmlab/labuildings/blo
 - **To catch up with other cities.** New York has buildings. Seattle has buildings. San Francisco. Portland. Even Bakersfield has buildings. L.A. County should too!
 - **Because a big earthquake is coming.** Free and open data will assist first responders. And later it will allow folks to update the buildings with tags showing whether they have been destroyed, are dangerous or have been red-tagged.
 - **To improve the Los Angeles Times maps** Seriously! The Times has been using and contributing to OpenStreetmap for the last four years. A large portion of their interactive web maps are based on the [Quiet LA tiles](https://github.com/datadesk/osm-quiet-la). And the Times has used OSM data to do a lot of maps, including about 700 maps printed in the newspaper (with an OSM credit, of course).
-- **Because buildings data will encourage even more data.** Once buildings are in the map, people will be able to orient themselves to the shapes, making it easier to add more data, like names or businesses.
+- **Buildings data will encourage more map edits.** Once buildings are in the map, people will be able to orient themselves to the shapes, making it easier to add more data, like names or businesses.
 
 ### More on this project
 
