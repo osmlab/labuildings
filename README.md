@@ -1,11 +1,21 @@
-LA Buildings
+The Great L.A. County Building Import
 ===========
 
 [![Join the chat at https://gitter.im/osmlab/labuildings](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osmlab/labuildings?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Los Angeles County building and address import
+This repo focuses on the L.A. County building and address import. Right now we're focuses on importing buildings with addresses to follow later.
 
-Generates an OSM file of buildings with addresses per census block groups,
+You can jump in and [follow the guide](https://github.com/osmlab/labuildings/blob/master/IMPORTING.md) and [select a task](http://labuildingsimport.com) to import today. 
+
+### Why are we doing this?
+- ***To improve the map!*** More data will allow more users to create projects and do analysis on a variety of things. How many units are located within 1,000 feet of a freeway? This data will allow you to figure that out.
+- ***To catch up with other cities*** New York has buildings. Seattle has buildings. San Francisco. Portland. Even Bakersfield has buildings. L.A. County should too!
+- ***Because a big earthquake is coming.*** Free and open data will assist first responders. And later it will allow folks to update the buildings with tags showing whether they have been destroyed, are dangerous or have been red-tagged.
+- ***To improve the Los Angeles Times maps*** Seriously! The Times has been using and contributing to OpenStreetmap for the last four years. A large portion of their interactive web maps are based on the [Quiet LA tiles](https://github.com/datadesk/osm-quiet-la). And the Times has used OSM data to do a lot of maps, including about 700 maps printed in the newspaper (with an OSM credit, of course).
+
+### More on this project
+
+These scripts generate an OSM file of buildings ~~with addresses~~ per census block groups,
 ready to be used in JOSM for a manual review and upload to OpenStreetMap. This repository is based heavily on the [NYC building import](https://github.com/osmlab/nycbuildings)
 
 This README is about data conversion. See also the [page on the OSM wiki](https://wiki.openstreetmap.org/wiki/Los_angeles,_California/Buildings_Import).
