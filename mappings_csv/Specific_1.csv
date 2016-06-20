@@ -1,4 +1,4 @@
-SpecificUs,osm_key2,osm_val2
+SpecificUs,osm_key2,osm_val2,osm_key3,osm_val3,osm_key4,osm_val4
 4 Stories or Less,,
 5 Stories or More,,
 Adult Care Facility - Social and Recreational Services,,
@@ -9,16 +9,16 @@ Artist in Residence,,
 Auto Body Repair Shop,building:use,car_repair
 Auto Service Centers (No Gasoline),building:use,car_repair
 Beverage,,
-"Building Supplies (Home Depot, etc.)",,
+"Building Supplies (Home Depot, etc.)",shop,doityourself
 Car Wash Only,building:use,car_wash
 "Car Wash Only, Self-service Type",building:use,car_wash
 "Cement, Rock and Gravel Plant",,
-"Cemetery, Mausoleum",,
+"Cemetery, Mausoleum",amenity,grave_yard
 Church Parking Lot,,
 "Commercial Swimming Pools, School",,
 Concessions,,
 Contractor Storage Yard,building:use,storage_yard
-"Convalescent Hospital, Nursing Home",,
+"Convalescent Hospital, Nursing Home",amenity,social_facility,social_facility,assisted_living,social_facility=day_care
 Dance Hall,building:use,dance_hall
 Detached,,
 "Discount Department Store (Target, etc.)",,
@@ -33,10 +33,10 @@ High Rise 5 Stories or More,,
 "High Value Residence, X Cost Classification",,
 "Home Furnishings (Ethan Allen, etc.)",,
 Horse Stable - Private,,
-Hotel - 50 Rooms and Over,,
-Hotel - Under 50 Rooms,,
+Hotel - 50 Rooms and Over,tourism,hotel
+Hotel - Under 50 Rooms,tourism,hotel
 Ice,sport,ice_skating
-Legitimate (Stage) Theater,,
+Legitimate (Stage) Theater,amenity,theatre
 Loft-type Buildings,office,yes
 Lots - Commercial Parking,,
 Lots - Patron or Employee,,
@@ -49,8 +49,8 @@ Miscellaneous,,
 Miscellaneous Commercial,,
 Miscellaneous Industrial,,
 "Mortuary, Funeral Home",,
-Motel - 50 Rooms and Over,,
-Motel - Under 50 Rooms,,
+Motel - 50 Rooms and Over,tourism,motel
+Motel - Under 50 Rooms,tourism,motel
 Motel/Hotel and Apartment Combinations - 50 Units and Over,,
 Motel/Hotel and Apartment Combinations - Under 50 Units,,
 Movie - Drive-in,,
@@ -61,9 +61,9 @@ Non Profit,,
 Office and Residential,office,yes
 Other,,
 Own-your-own Lot,,
-Parking Structures - Commercial Parking,,
-Parking Structures - Patron or Employee,,
-"Petroleum Refinery, Chemical Plant",,
+Parking Structures - Commercial Parking,amenity,parking
+Parking Structures - Patron or Employee,amenity,parking,access,private
+"Petroleum Refinery, Chemical Plant",man_made,works,product,petroleum
 Private Rural Pumping Plant,,
 Public School,building,school
 "Public Storage (Bekins, Lyons)",,
@@ -75,8 +75,8 @@ Recreation,,
 Rights of Way,,
 Roller,sport,roller_skating
 Self Service,,
-Single Residence,,
-"Small Food Store - Less than 6,000 SF",,
+Single Residence,building,house
+"Small Food Store - Less than 6,000 SF",shop,convenience
 Store and Office Combination,office,yes
 Store and Residential Combination,,
 Studio,,
