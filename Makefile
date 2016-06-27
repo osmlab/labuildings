@@ -71,16 +71,3 @@ directories:
 	mkdir -p chunks
 	mkdir -p merged
 	mkdir -p osm
-
-# Make TileMill 1 project
-tilemill:
-	mkdir -p ${HOME}/Documents/MapBox/project
-	ln -sf "`pwd`" ${HOME}/Documents/MapBox/project/labuildings
-
-# Load database for Mapbox Studio
-database: AddressPt/addresses.shp BldgPly/buildings.shp BlockGroupPly/blockgroups.shp
-	createdb labuildings
-	psql labuildings -c "CREATE EXTENSION postgis;"
-	shp2pgsql AddressPt/address.shp | psql labuildings
-	shp2pgsql BldgPly/buildings.shp | psql labuildings
-	shp2pgsql BlockGroupPly/blockgroups.shp | psql labuildings
