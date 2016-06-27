@@ -26,8 +26,8 @@ def csv_to_json(mapping_name, csv_file):
                     mappings[mapping_name][row[0]]['val2'] = row[4]; 
             if len(row) > 6:
                 if row[5] != '' and row[6] != '':
-                    mappings[mapping_name][row[0]]['key3'] = row[4];
-                    mappings[mapping_name][row[0]]['val3'] = row[5]; 
+                    mappings[mapping_name][row[0]]['key3'] = row[5];
+                    mappings[mapping_name][row[0]]['val3'] = row[6]; 
     # print mappings
 
 csv_to_json('GeneralUse', GENERAL_USE_CSV)
