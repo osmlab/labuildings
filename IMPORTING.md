@@ -36,6 +36,10 @@ To contribute to this project, you need to use the JOSM editor.  Here are some r
 ### Adding Bing imagery background
  * From the **Imagery** menu, select **Bing aerial imagery**.
 
+### Add L.A. County imagery (for rural areas)
+ * Bing's imagery outside of major cities can be as old as 2010 (and unusable on the islands). Add L.A. County's aerial tileserver with an offset: From **Imagery** select **Imagery preferences** and click on **+ TMS** and add the following URL: `http://cache.gis.lacounty.gov/cache/rest/services/LACounty_Cache/LACounty_Base/MapServer/tile/{zoom}/{y}/{x}`
+ ![tile_server](https://cloud.githubusercontent.com/assets/695934/16742771/08ca96a4-475e-11e6-996a-4fff8232a5c9.gif)
+
 ### Selecting a task in the Tasking Manager
 
  * Choose which area you want to work on from **[http://labuildingsimport.com](http://labuildingsimport.com)** and click **Start Mapping**.
