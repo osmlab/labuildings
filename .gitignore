@@ -13,3 +13,4 @@
 /addresses/
 /buildings/
 */node_modules/*
+.ipynb_checkpoints/
