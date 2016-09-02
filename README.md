@@ -3,7 +3,9 @@ The Great L.A. County Building Import
 
 [![Join the chat at https://gitter.im/osmlab/labuildings](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/osmlab/labuildings?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This repo focuses on the L.A. County building and address import. Right now we're focuses on importing buildings with addresses to follow later.
+This repo focuses on the L.A. County building and address import. 
+
+**Right now we're importing buildings**
 
 You can jump in and [follow the guide](https://github.com/osmlab/labuildings/blob/master/IMPORTING.md) and [select an area](http://labuildingsimport.com) to import today. 
 
