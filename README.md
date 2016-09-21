@@ -5,7 +5,7 @@ The Great L.A. County Building Import
 
 This repo focuses on the L.A. County building and address import. 
 
-**Right now we're importing buildings**
+**Right now we're importing buildings - [1.7 million and counting](https://taginfo.openstreetmap.org/keys/lacounty:bld_id)**
 
 You can jump in and [follow the guide](https://github.com/osmlab/labuildings/blob/master/IMPORTING.md) and [select an area](http://labuildingsimport.com) to import today. 
 
