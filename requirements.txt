@@ -1,4 +1,4 @@
 shapely==1.2.18 
 lxml==3.2.3
-fiona==1.0
+fiona==1.7
 rtree==0.7.0
