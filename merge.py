@@ -8,6 +8,7 @@ from sys import argv
 from glob import glob
 from multiprocessing import Pool
 import json
+import md5
 
 useAINs = True
 
@@ -22,7 +23,7 @@ def merge(buildingIn, addressIn, mergedOut):
 
     geoid = re.match('^.*-(\d+)\.shp$', buildingIn).groups(0)[0]
 
-    #print "loaded", len(addresses), "addresses"
+#    print "loaded", len(addresses), "addresses"
 
     # Load and index all buildings.
     buildings = []
@@ -36,7 +37,7 @@ def merge(buildingIn, addressIn, mergedOut):
             buildingShapes.append(shape)
             buildingIdx.add(len(buildings) - 1, shape.bounds)
 
-    #print "loaded", len(buildings), "buildings"
+#    print "loaded", len(buildings), "buildings"
 
     addressIntersections = {}
 
@@ -47,7 +48,9 @@ def merge(buildingIn, addressIn, mergedOut):
     # Note, if there are multiple address points within a building, this
     # adds each one as an array
     for address in addresses:
-        if address not in addressIntersections:
+#       print 'address', address
+#	print 'addressIntersections', addressIntersections
+        if address not in addressIntersections.keys():
             addressIntersections[address] = 0
         for i in buildingIdx.intersection(address.bounds):
             if buildingShapes[i].contains(address):
